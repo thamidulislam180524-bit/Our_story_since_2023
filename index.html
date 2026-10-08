@@ -1,811 +1,1279 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Our Story</title>
+    <title>Our Story Since 2023 ♡</title>
 
     <link rel="stylesheet" href="style.css">
-
 </head>
-
 
 <body>
 
+    <!-- =========================================================
+         GLOBAL BACKGROUND EFFECTS
+    ========================================================== -->
 
-    <!-- ========================================= -->
-    <!-- PAGE 1 — WELCOME -->
-    <!-- ========================================= -->
+    <div class="background-hearts"></div>
+    <div class="noise"></div>
 
-    <section id="page1" class="page welcome-page">
+    <!-- =========================================================
+         MUSIC
+    ========================================================== -->
 
-        <div class="page-content">
+    <audio id="bgMusic" src="audio/song.mp3" loop></audio>
 
-            <p class="eyebrow">
-                A LITTLE SOMETHING FOR YOU
-            </p>
-
-            <h1>
-                Our<br>
-                Story
-            </h1>
-
-            <p class="date">
-                09 . 10 . 2023
-            </p>
-
-            <button onclick="nextPage('page2')">
-                START OUR STORY
-            </button>
-
-        </div>
-
-    </section>
+    <!-- Floating Music Button -->
+    <button id="floatingMusicBtn" class="floating-music hidden" onclick="toggleMusic()">
+        <span id="musicIcon">♫</span>
+        <span id="musicText">Music</span>
+    </button>
 
 
+    <!-- =========================================================
+         MAIN WEBSITE
+    ========================================================== -->
 
-    <!-- ========================================= -->
-    <!-- PAGE 2 — FIRST QUESTION -->
-    <!-- ========================================= -->
+    <main id="story">
 
-    <section id="page2" class="page">
+        <!-- =====================================================
+             PAGE 1 — WELCOME
+        ====================================================== -->
 
-        <div class="page-content">
+        <section class="page active" id="page1">
 
-            <p class="eyebrow">
-                BEFORE WE BEGIN
-            </p>
+            <div class="page-content hero-page">
 
-            <h2>
-                Do you remember<br>
-                when our story began?
-            </h2>
+                <p class="small-label">A LITTLE JOURNEY THROUGH TIME</p>
 
+                <h1 class="main-title">
+                    Our Story
+                </h1>
 
-            <div class="quiz">
+                <div class="title-line"></div>
 
-                <button class="quiz-option">
-                    20 July 2023
-                </button>
-
-                <button class="quiz-option">
-                    24 August 2023
-                </button>
-
-                <button class="quiz-option">
-                    03 October 2023
-                </button>
-
-                <button class="quiz-option correct">
-                    09 October 2023
-                </button>
-
-            </div>
-
-
-            <p class="quiz-message">
-            </p>
-
-
-            <button onclick="nextPage('page3')">
-                CONTINUE
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================= -->
-    <!-- PAGE 3 — 20 JULY 2023 -->
-    <!-- ========================================= -->
-
-    <section id="page3" class="page memory-page">
-
-        <div class="page-content">
-
-            <p class="eyebrow">
-                MEMORY 01
-            </p>
-
-            <h2>
-                20 JULY 2023
-            </h2>
-
-            <p class="subtitle">
-                Some memories become special
-                before we even realize why.
-            </p>
-
-
-            <div class="memory-card">
-
-                <div class="date-reveal">
-                    20 JULY 2023
-                </div>
-
-                <p>
-                    Tap to reveal the memory
+                <p class="subtitle">
+                    Since <span>20 July 2023</span>
                 </p>
 
-            </div>
-
-
-            <div class="photo-gallery july-gallery">
-
-                <img src="images/july-1.jpg" alt="20 July memory">
-
-                <img src="images/july-2.jpg" alt="20 July memory">
-
-                <img src="images/july-3.jpg" alt="20 July memory">
-
-            </div>
-
-
-            <button onclick="nextPage('page4')">
-                NEXT MEMORY
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================= -->
-    <!-- PAGE 4 — 24 AUGUST / BRISHTI BILASH -->
-    <!-- ========================================= -->
-
-    <section id="page4" class="page rain-page">
-
-        <div class="page-content">
-
-            <p class="eyebrow">
-                MEMORY 02
-            </p>
-
-            <h2>
-                24 AUGUST 2023
-            </h2>
-
-            <h3>
-                Our First Brishti Bilash
-            </h3>
-
-
-            <div class="reveal-photo">
-
-                <img
-                    src="images/august.jpg"
-                    alt="Our first Brishti Bilash"
-                >
-
-                <button>
-                    REVEAL MEMORY
-                </button>
-
-            </div>
-
-
-            <p class="memory-text">
-                Rain made the day
-                a little more beautiful.
-            </p>
-
-
-            <button onclick="nextPage('page5')">
-                CONTINUE
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================= -->
-    <!-- PAGE 5 — MEMORY QUIZ -->
-    <!-- ========================================= -->
-
-    <section id="page5" class="page">
-
-        <div class="page-content">
-
-            <p class="eyebrow">
-                MEMORY QUIZ
-            </p>
-
-            <h2>
-                Can you guess<br>
-                this memory?
-            </h2>
-
-
-            <div class="blurred-memory">
-
-                <p>
-                    YOUR MEMORY
+                <p class="hero-text">
+                    Some stories begin with a plan.<br>
+                    Ours began with a meeting...
+                    and became everything.
                 </p>
 
-            </div>
-
-
-            <div class="quiz">
-
-                <button class="quiz-option">
-                    Our first memory
-                </button>
-
-                <button class="quiz-option">
-                    A birthday memory
-                </button>
-
-                <button class="quiz-option">
-                    Our first Brishti Bilash
-                </button>
-
-                <button class="quiz-option">
-                    A memory from 2026
-                </button>
-
-            </div>
-
-
-            <button>
-                REVEAL
-            </button>
-
-
-            <button onclick="nextPage('page6')">
-                NEXT
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================= -->
-    <!-- PAGE 6 — 03 OCTOBER / BIRTHDAY -->
-    <!-- ========================================= -->
-
-    <section id="page6" class="page birthday-page">
-
-        <div class="page-content">
-
-            <p class="eyebrow">
-                MEMORY 03
-            </p>
-
-            <h2>
-                03 OCTOBER 2023
-            </h2>
-
-            <h3>
-                A Birthday To Remember
-            </h3>
-
-
-            <div class="birthday-gallery">
-
-                <div class="birthday-photo">
-
-                    <img
-                        src="images/october-1.jpg"
-                        alt="Birthday memory 1"
-                    >
-
-                </div>
-
-
-                <div class="birthday-photo">
-
-                    <img
-                        src="images/october-2.jpg"
-                        alt="Birthday memory 2"
-                    >
-
-                </div>
-
-
-                <div class="birthday-photo">
-
-                    <img
-                        src="images/october-3.jpg"
-                        alt="Birthday memory 3"
-                    >
-
-                </div>
-
-            </div>
-
-
-            <p class="memory-text">
-
-                Another little memory
-                that became part of our story.
-
-            </p>
-
-
-            <button onclick="nextPage('page7')">
-                NEXT
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================= -->
-    <!-- PAGE 7 — IMPORTANT QUESTION -->
-    <!-- ========================================= -->
-
-    <section id="page7" class="page question-page">
-
-        <div class="page-content">
-
-            <p class="eyebrow">
-                ONE IMPORTANT QUESTION
-            </p>
-
-            <h2>
-                When did we<br>
-                officially become "US"?
-            </h2>
-
-
-            <div class="quiz">
-
-                <button class="quiz-option">
-                    20 July
-                </button>
-
-                <button class="quiz-option">
-                    24 August
-                </button>
-
-                <button class="quiz-option">
-                    03 October
-                </button>
-
-                <button class="quiz-option correct">
-                    09 October
-                </button>
-
-            </div>
-
-
-            <p class="quiz-message">
-            </p>
-
-
-            <button onclick="nextPage('page8')">
-                FIND OUT
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================= -->
-    <!-- PAGE 8 — THE DAY -->
-    <!-- ========================================= -->
-
-    <section id="page8" class="page anniversary-page">
-
-        <div class="page-content">
-
-            <p class="eyebrow">
-                09 OCTOBER 2023
-            </p>
-
-
-            <h1>
-                The Day<br>
-                We Became
-            </h1>
-
-
-            <h2>
-                US.
-            </h2>
-
-
-            <p class="anniversary-text">
-
-                The day our story
-                officially began.
-
-            </p>
-
-
-            <div class="anniversary-date">
-
-                09 . 10 . 2023
-
-            </div>
-
-
-            <button onclick="nextPage('page9')">
-                CONTINUE OUR STORY
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================= -->
-    <!-- PAGE 9 — THEN VS NOW -->
-    <!-- ========================================= -->
-
-    <section id="page9" class="page then-now-page">
-
-        <div class="page-content">
-
-            <p class="eyebrow">
-                THEN & NOW
-            </p>
-
-            <h2>
-                Look how far<br>
-                we've come.
-            </h2>
-
-
-            <div class="comparison">
-
-                <div class="then">
-
-                    <p>
-                        THEN
-                    </p>
-
-                    <span>
-                        2023
-                    </span>
-
-                </div>
-
-
-                <div class="now">
-
-                    <p>
-                        NOW
-                    </p>
-
-                    <span>
-                        2026
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="slider">
-
-                <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value="50"
-                >
-
-            </div>
-
-
-            <p class="memory-text">
-
-                Three years.
-                So many memories.
-
-            </p>
-
-
-            <button onclick="nextPage('page10')">
-                NEXT
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================= -->
-    <!-- PAGE 10 — 2026 -->
-    <!-- ========================================= -->
-
-    <section id="page10" class="page current-page">
-
-        <div class="page-content">
-
-            <p class="eyebrow">
-                2026
-            </p>
-
-            <h2>
-                Three Years Later
-            </h2>
-
-
-            <div class="current-gallery">
-
-                <img
-                    src="images/current-1.jpg"
-                    alt="Current memory 1"
-                >
-
-                <img
-                    src="images/current-2.jpg"
-                    alt="Current memory 2"
-                >
-
-                <img
-                    src="images/current-3.jpg"
-                    alt="Current memory 3"
-                >
-
-            </div>
-
-
-            <p class="memory-text">
-
-                Different moments.<br>
-                Different days.<br>
-
-                <strong>
-                    Still you.
-                </strong>
-
-            </p>
-
-
-            <h3>
-                Still Us.
-            </h3>
-
-
-            <button onclick="nextPage('page11')">
-                CONTINUE
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================= -->
-    <!-- PAGE 11 — COUPLE QUIZ -->
-    <!-- ========================================= -->
-
-    <section id="page11" class="page couple-quiz-page">
-
-        <div class="page-content">
-
-            <p class="eyebrow">
-                ONE LAST GAME
-            </p>
-
-            <h2>
-                How Well<br>
-                Do You Know Us?
-            </h2>
-
-
-            <div class="couple-question">
-
-                <p>
-                    Who gets angry first?
-                </p>
-
-                <button>
-                    You
-                </button>
-
-                <button>
-                    Me
-                </button>
-
-            </div>
-
-
-            <div class="couple-question">
-
-                <p>
-                    Who apologizes first?
-                </p>
-
-                <button>
-                    You
-                </button>
-
-                <button>
-                    Me
-                </button>
-
-            </div>
-
-
-            <div class="couple-question">
-
-                <p>
-                    Who is more dramatic?
-                </p>
-
-                <button>
-                    You
-                </button>
-
-                <button>
-                    Me
-                </button>
-
-            </div>
-
-
-            <div class="couple-question">
-
-                <p>
-                    Who misses the other more?
-                </p>
-
-                <button>
-                    You
-                </button>
-
-                <button>
-                    Me
-                </button>
-
-            </div>
-
-
-            <button onclick="nextPage('page12')">
-                SEE THE FINAL MESSAGE
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================= -->
-    <!-- PAGE 12 — WISH + SONG + FINAL -->
-    <!-- ========================================= -->
-
-    <section id="page12" class="page final-page">
-
-        <div class="page-content">
-
-
-            <!-- WISH -->
-
-            <div class="wish-section">
-
-                <p class="eyebrow">
-                    MY WISH FOR US
-                </p>
-
-
-                <h2>
-                    I don't wish<br>
-                    for a perfect story.
-                </h2>
-
-
-                <p class="wish-text">
-
-                    I just wish that,
-                    through every version of life,
-
-                    <br><br>
-
-                    we keep choosing each other.
-
-                </p>
-
-            </div>
-
-
-
-            <!-- SONG -->
-
-            <div class="song-section">
-
-                <p class="eyebrow">
-                    OUR SONG
-                </p>
-
-
-                <h2>
-                    One song.<br>
-                    A thousand memories.
-                </h2>
-
-
-                <button id="playSong">
+                <!-- MUSIC START -->
+                <button class="music-start-btn" onclick="startStory()">
+                    <span>♫</span>
                     PLAY OUR SONG
                 </button>
 
+                <p class="music-note">
+                    Turn the volume up.
+                </p>
+
             </div>
 
+            <div class="scroll-hint">
+                <span>Begin our story</span>
+                <span class="arrow">↓</span>
+            </div>
+
+        </section>
 
 
-            <!-- FINAL -->
+        <!-- =====================================================
+             PAGE 2 — WHEN DID IT BEGIN?
+        ====================================================== -->
 
-            <div class="final-section">
+        <section class="page" id="page2">
 
-                <p class="final-date">
+            <div class="page-content quiz-page">
 
-                    09 . 10 . 2023
-                    —
-                    09 . 10 . 2026
-
-                </p>
-
-
-                <h1>
-                    3 YEARS<br>
-                    OF US.
-                </h1>
-
-
-                <p>
-
-                    1,095+ days.<br>
-                    Countless memories.<br>
-                    One story.
-
-                </p>
-
+                <p class="small-label">CHAPTER 01</p>
 
                 <h2>
-                    Happy 3rd Anniversary,
-                    My Love.
+                    When did our story begin?
                 </h2>
 
-
-                <p class="ending">
-
-                    Our story isn't ending here.
-
-                    <br><br>
-
-                    There's still so much more
-                    to write.
-
+                <p class="question-description">
+                    Think carefully...
                 </p>
+
+                <div class="options-grid">
+
+                    <button class="option-btn"
+                            onclick="checkAnswer(this, 2, 'page2-result')">
+                        03 October 2023
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="checkAnswer(this, 1, 'page2-result')">
+                        20 July 2023
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="checkAnswer(this, 2, 'page2-result')">
+                        24 August 2023
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="checkAnswer(this, 2, 'page2-result')">
+                        09 October 2023
+                    </button>
+
+                </div>
+
+                <div id="page2-result" class="quiz-result"></div>
+
+                <button class="next-btn hidden" id="page2-next" onclick="nextPage()">
+                    LET'S GO →
+                </button>
 
             </div>
 
-        </div>
-
-    </section>
+        </section>
 
 
+        <!-- =====================================================
+             PAGE 3 — 20 JULY 2023
+        ====================================================== -->
 
-    <!-- ========================================= -->
-    <!-- JAVASCRIPT -->
-    <!-- ========================================= -->
+        <section class="page memory-page" id="page3">
+
+            <div class="page-content">
+
+                <p class="date-label">20 JULY 2023</p>
+
+                <h2>Our First Meeting</h2>
+
+                <p class="location">
+                    College Lake Road
+                </p>
+
+                <div class="memory-gallery three-photos">
+
+                    <div class="memory-photo hidden-photo reveal-photo"
+                         onclick="revealPhoto(this)">
+                        <img src="images/july-1.jpg" alt="July memory">
+                        <div class="photo-cover">
+                            <span>CLICK TO REVEAL</span>
+                        </div>
+                    </div>
+
+                    <div class="memory-photo hidden-photo reveal-photo"
+                         onclick="revealPhoto(this)">
+                        <img src="images/july-2.jpg" alt="July memory">
+                        <div class="photo-cover">
+                            <span>CLICK TO REVEAL</span>
+                        </div>
+                    </div>
+
+                    <div class="memory-photo hidden-photo reveal-photo"
+                         onclick="revealPhoto(this)">
+                        <img src="images/july-3.jpg" alt="July memory">
+                        <div class="photo-cover">
+                            <span>CLICK TO REVEAL</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="memory-text">
+
+                    <p>
+                        We had planned to meet.
+                    </p>
+
+                    <p>
+                        We talked, sat together,
+                        and had those small conversations
+                        that somehow stayed in my mind.
+                    </p>
+
+                    <p>
+                        I also had a Chemistry exam that day...
+                        and let's just say,
+                        <span>the exam did not go well.</span>
+                    </p>
+
+                    <p class="highlight-line">
+                        But that day gave me something much better.
+                    </p>
+
+                    <p>
+                        My first impression?
+                        You looked like a little teddy bear.
+                    </p>
+
+                </div>
+
+                <div class="inline-quiz">
+
+                    <h3>
+                        What was happening on the day we first met?
+                    </h3>
+
+                    <div class="mini-options">
+
+                        <button onclick="miniQuiz(this, false)">
+                            We went for a birthday celebration
+                        </button>
+
+                        <button onclick="miniQuiz(this, true)">
+                            We had planned to meet after a Chemistry exam
+                        </button>
+
+                        <button onclick="miniQuiz(this, false)">
+                            We randomly met on the road
+                        </button>
+
+                        <button onclick="miniQuiz(this, false)">
+                            We went for a trip
+                        </button>
+
+                    </div>
+
+                    <div class="mini-result"></div>
+
+                </div>
+
+                <button class="next-btn" onclick="nextPage()">
+                    NEXT MEMORY →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PAGE 4 — BRISHTI BILASH QUIZ
+        ====================================================== -->
+
+        <section class="page" id="page4">
+
+            <div class="page-content quiz-page">
+
+                <p class="small-label">MEMORY CHECK</p>
+
+                <h2>
+                    Do you remember our first Brishti Bilash?
+                </h2>
+
+                <div class="rain-quiz">
+
+                    <button class="option-btn"
+                            onclick="checkAnswer(this, 2, 'page4-result')">
+                        03 October 2023
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="checkAnswer(this, 2, 'page4-result')">
+                        09 October 2023
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="checkAnswer(this, 1, 'page4-result')">
+                        24 August 2023
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="checkAnswer(this, 2, 'page4-result')">
+                        20 July 2023
+                    </button>
+
+                </div>
+
+                <div id="page4-result" class="quiz-result"></div>
+
+                <button class="next-btn hidden"
+                        id="page4-next"
+                        onclick="nextPage()">
+                    LET ME TAKE YOU BACK →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PAGE 5 — FIRST BRISHTI BILASH
+        ====================================================== -->
+
+        <section class="page rain-page" id="page5">
+
+            <div class="rain-overlay"></div>
+
+            <div class="page-content">
+
+                <p class="date-label">24 AUGUST 2023</p>
+
+                <h2>
+                    Our First Brishti Bilash
+                </h2>
+
+                <p class="location">
+                    Mini Cox Bazar
+                </p>
+
+                <div class="single-memory">
+
+                    <div class="big-memory-photo hidden-photo reveal-photo"
+                         onclick="revealRainMemory(this)">
+
+                        <img src="images/august.jpg"
+                             alt="First Brishti Bilash">
+
+                        <div class="photo-cover">
+                            <span>REVEAL THE MEMORY</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="rain-memory-text">
+
+                    <p>
+                        The first time we got drenched
+                        in the rain together.
+                    </p>
+
+                    <p>
+                        Fuchka, endless conversations,
+                        walking side by side under the rain...
+                        and somehow,
+                        everything felt a little more beautiful with you.
+                    </p>
+
+                    <p class="wardah-text">
+                        My Wardah,
+                        you made an ordinary rainy day
+                        feel like one of my favorite memories.
+                    </p>
+
+                    <p class="final-memory-line">
+                        Some rains are forgotten.<br>
+                        <span>Ours became a memory. ♡</span>
+                    </p>
+
+                </div>
+
+                <button class="next-btn" onclick="nextPage()">
+                    NEXT CHAPTER →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PAGE 6 — 03 OCTOBER 2023
+        ====================================================== -->
+
+        <section class="page memory-page" id="page6">
+
+            <div class="page-content">
+
+                <p class="date-label">
+                    03 OCTOBER 2023
+                </p>
+
+                <h2>
+                    A Birthday Memory
+                </h2>
+
+                <p class="location">
+                    Kash full area
+                </p>
+
+                <div class="memory-gallery three-photos birthday-gallery">
+
+                    <div class="memory-photo reveal-photo">
+                        <img src="images/october-1.jpg" alt="Birthday memory">
+                    </div>
+
+                    <div class="memory-photo reveal-photo">
+                        <img src="images/october-2.jpg" alt="Birthday memory">
+                    </div>
+
+                    <div class="memory-photo reveal-photo">
+                        <img src="images/october-3.jpg" alt="Birthday memory">
+                    </div>
+
+                </div>
+
+                <div class="birthday-text">
+
+                    <p>
+                        It was my birthday.
+                    </p>
+
+                    <p>
+                        Nothing too dramatic.
+                        Nothing that needed a complicated story.
+                    </p>
+
+                    <p>
+                        But there was one little first
+                        I'll always remember.
+                    </p>
+
+                    <p class="highlight-line">
+                        The first time I drove a car with a girl.
+                    </p>
+
+                    <p>
+                        And somehow,
+                        you were there for it.
+                    </p>
+
+                </div>
+
+                <button class="next-btn" onclick="nextPage()">
+                    I REMEMBER THIS → 
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PAGE 7 — BIRTHDAY MEMORY QUIZ
+        ====================================================== -->
+
+        <section class="page" id="page7">
+
+            <div class="page-content quiz-page">
+
+                <p class="small-label">
+                    ONE MORE MEMORY
+                </p>
+
+                <h2>
+                    What was special about that birthday?
+                </h2>
+
+                <div class="options-grid">
+
+                    <button class="option-btn"
+                            onclick="checkAnswer(this, 2, 'page7-result')">
+                        It was our first trip together
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="checkAnswer(this, 1, 'page7-result')">
+                        It was the first time I drove a car with a girl
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="checkAnswer(this, 2, 'page7-result')">
+                        It was our first movie together
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="checkAnswer(this, 2, 'page7-result')">
+                        It was our first concert together
+                    </button>
+
+                </div>
+
+                <div id="page7-result" class="quiz-result"></div>
+
+                <button class="next-btn hidden"
+                        id="page7-next"
+                        onclick="nextPage()">
+                    SOMETHING WAS ABOUT TO CHANGE →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PAGE 8 — SECRET MEMORY / PROPOSAL
+        ====================================================== -->
+
+        <section class="page secret-page" id="page8">
+
+            <div class="page-content secret-content">
+
+                <p class="small-label">
+                    A SECRET MEMORY
+                </p>
+
+                <div class="secret-envelope"
+                     onclick="openSecretMemory()">
+
+                    <div class="envelope-glow"></div>
+
+                    <div class="envelope">
+                        <div class="envelope-flap"></div>
+
+                        <div class="envelope-paper">
+                            <span>OPEN</span>
+                            <span>OUR</span>
+                            <span>MEMORY</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="secretReveal" class="secret-reveal">
+
+                    <p class="date-label">
+                        09 OCTOBER 2023 — 12:47 AM
+                    </p>
+
+                    <h2>
+                        Some memories aren't photographs.
+                    </h2>
+
+                    <p class="secret-line">
+                        Some are just words
+                        we never want to forget.
+                    </p>
+
+                    <div class="proposal-photo">
+
+                        <img src="images/special-memory.jpg"
+                             alt="Our special memory">
+
+                    </div>
+
+                    <p class="secret-description">
+                        The moment our best-friend story
+                        quietly became something more.
+                    </p>
+
+                    <p class="secret-description">
+                        And somehow,
+                        one message changed everything.
+                    </p>
+
+                    <button class="next-btn"
+                            onclick="nextPage()">
+                        CONTINUE →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PAGE 9 — WHEN DID WE BECOME US?
+        ====================================================== -->
+
+        <section class="page" id="page9">
+
+            <div class="page-content quiz-page">
+
+                <p class="small-label">
+                    THE MOMENT
+                </p>
+
+                <h2>
+                    When did we officially become “US”?
+                </h2>
+
+                <p class="question-description">
+                    We already knew we were becoming
+                    more than best friends...
+                </p>
+
+                <div class="options-grid">
+
+                    <button class="option-btn"
+                            onclick="checkAnswer(this, 2, 'page9-result')">
+                        03 October 2023
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="checkAnswer(this, 2, 'page9-result')">
+                        24 August 2023
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="checkAnswer(this, 2, 'page9-result')">
+                        20 July 2023
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="checkAnswer(this, 1, 'page9-result')">
+                        09 October 2023
+                    </button>
+
+                </div>
+
+                <div id="page9-result" class="quiz-result"></div>
+
+                <button class="next-btn hidden"
+                        id="page9-next"
+                        onclick="nextPage()">
+                    SHOW ME THAT NIGHT →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PAGE 10 — WE BECAME US
+        ====================================================== -->
+
+        <section class="page us-page" id="page10">
+
+            <div class="page-content cinematic-content">
+
+                <p class="date-label">
+                    09 OCTOBER 2023
+                </p>
+
+                <div class="cinematic-text">
+
+                    <p class="fade-line">
+                        We already knew...
+                    </p>
+
+                    <p class="fade-line">
+                        We were becoming
+                        more than best friends.
+                    </p>
+
+                    <p class="fade-line big">
+                        AND THEN...
+                    </p>
+
+                    <p class="became-text">
+                        WE BECAME
+                    </p>
+
+                    <h2 class="us-text">
+                        US.
+                    </h2>
+
+                    <p class="time-text">
+                        12:47 AM
+                    </p>
+
+                    <p class="us-description">
+                        A sudden proposal.<br>
+                        A very happy Labib.<br>
+                        A very happy Mihi.<br>
+                        And the beginning of our story.
+                    </p>
+
+                </div>
+
+                <button class="next-btn" onclick="nextPage()">
+                    THREE YEARS LATER →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PAGE 11 — THEN & NOW
+        ====================================================== -->
+
+        <section class="page" id="page11">
+
+            <div class="page-content then-now-page">
+
+                <p class="small-label">
+                    THEN & NOW
+                </p>
+
+                <h2>
+                    2023 → 2026
+                </h2>
+
+                <p class="then-now-intro">
+                    Three years can change a lot.
+                </p>
+
+                <div class="comparison-wrapper">
+
+                    <div class="comparison-card">
+
+                        <span class="comparison-label">
+                            THEN — 2023
+                        </span>
+
+                        <p>
+                            We were still figuring each other out.
+                        </p>
+
+                        <p>
+                            Everything felt new.
+                        </p>
+
+                        <p>
+                            Small conversations felt important.
+                        </p>
+
+                        <p>
+                            We were learning how to
+                            understand each other.
+                        </p>
+
+                    </div>
+
+                    <div class="comparison-divider">
+                        →
+                    </div>
+
+                    <div class="comparison-card">
+
+                        <span class="comparison-label">
+                            NOW — 2026
+                        </span>
+
+                        <p>
+                            Three years later,
+                            we know each other differently.
+                        </p>
+
+                        <p>
+                            We've grown,
+                            changed and learned.
+                        </p>
+
+                        <p>
+                            We understand each other's silence
+                            a little better.
+                        </p>
+
+                        <p>
+                            And through everything,
+                            we're still choosing each other.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="then-now-closing">
+                    <p>
+                        From two people who were just
+                        getting to know each other...
+                    </p>
+
+                    <p>
+                        to two people who know
+                        they want to keep walking together.
+                    </p>
+                </div>
+
+                <button class="next-btn" onclick="nextPage()">
+                    SEE US NOW →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PAGE 12 — 2026 CURRENT MEMORIES
+        ====================================================== -->
+
+        <section class="page current-page" id="page12">
+
+            <div class="page-content">
+
+                <p class="small-label">
+                    2026
+                </p>
+
+                <h2>
+                    Still Us.
+                </h2>
+
+                <p class="current-intro">
+                    No long stories.
+                    Just memories.
+                </p>
+
+                <div class="current-grid">
+
+                    <div class="flip-card">
+
+                        <div class="flip-card-inner">
+
+                            <div class="flip-card-front">
+                                <img src="images/current-1.jpg"
+                                     alt="Current memory 1">
+                            </div>
+
+                            <div class="flip-card-back">
+                                <p>
+                                    Still us. ♡
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="flip-card">
+
+                        <div class="flip-card-inner">
+
+                            <div class="flip-card-front">
+                                <img src="images/current-2.jpg"
+                                     alt="Current memory 2">
+                            </div>
+
+                            <div class="flip-card-back">
+                                <p>
+                                    Still choosing you.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="flip-card">
+
+                        <div class="flip-card-inner">
+
+                            <div class="flip-card-front">
+                                <img src="images/current-3.jpg"
+                                     alt="Current memory 3">
+                            </div>
+
+                            <div class="flip-card-back">
+                                <p>
+                                    And still more to come.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <p class="flip-hint">
+                    Tap a photo to flip it.
+                </p>
+
+                <button class="next-btn" onclick="nextPage()">
+                    ONE LAST QUIZ →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PAGE 13 — COUPLE QUIZ
+        ====================================================== -->
+
+        <section class="page" id="page13">
+
+            <div class="page-content couple-quiz-page">
+
+                <p class="small-label">
+                    HOW WELL DO YOU KNOW US?
+                </p>
+
+                <h2>
+                    Couple Quiz
+                </h2>
+
+                <p class="quiz-progress" id="coupleProgress">
+                    Question 1 of 8
+                </p>
+
+
+                <!-- QUESTION 1 -->
+
+                <div class="couple-question active-couple" data-question="1">
+
+                    <h3>
+                        Who gets angry first?
+                    </h3>
+
+                    <div class="two-option-grid">
+
+                        <button onclick="coupleAnswer(1, 'mihi', this)">
+                            Mihi
+                        </button>
+
+                        <button onclick="coupleAnswer(1, 'labib', this)">
+                            Labib
+                        </button>
+
+                    </div>
+
+                    <p class="couple-feedback"></p>
+
+                </div>
+
+
+                <!-- QUESTION 2 -->
+
+                <div class="couple-question" data-question="2">
+
+                    <h3>
+                        Who apologizes first?
+                    </h3>
+
+                    <div class="two-option-grid">
+
+                        <button onclick="coupleAnswer(2, 'mihi', this)">
+                            Mihi
+                        </button>
+
+                        <button onclick="coupleAnswer(2, 'labib', this)">
+                            Labib
+                        </button>
+
+                    </div>
+
+                    <p class="couple-feedback"></p>
+
+                </div>
+
+
+                <!-- QUESTION 3 -->
+
+                <div class="couple-question" data-question="3">
+
+                    <h3>
+                        Who is more stubborn?
+                    </h3>
+
+                    <div class="two-option-grid">
+
+                        <button onclick="coupleAnswer(3, 'mihi', this)">
+                            Mihi
+                        </button>
+
+                        <button onclick="coupleAnswer(3, 'labib', this)">
+                            Labib
+                        </button>
+
+                    </div>
+
+                    <p class="couple-feedback"></p>
+
+                </div>
+
+
+                <!-- QUESTION 4 -->
+
+                <div class="couple-question" data-question="4">
+
+                    <h3>
+                        Who misses the other more?
+                    </h3>
+
+                    <div class="two-option-grid">
+
+                        <button onclick="coupleAnswer(4, 'mihi', this)">
+                            Mihi
+                        </button>
+
+                        <button onclick="coupleAnswer(4, 'labib', this)">
+                            Labib
+                        </button>
+
+                    </div>
+
+                    <p class="couple-feedback"></p>
+
+                </div>
+
+
+                <!-- QUESTION 5 -->
+
+                <div class="couple-question" data-question="5">
+
+                    <h3>
+                        Who says “I love you” more?
+                    </h3>
+
+                    <div class="two-option-grid">
+
+                        <button onclick="coupleAnswer(5, 'mihi', this)">
+                            Mihi
+                        </button>
+
+                        <button onclick="coupleAnswer(5, 'labib', this)">
+                            Labib
+                        </button>
+
+                    </div>
+
+                    <p class="couple-feedback"></p>
+
+                </div>
+
+
+                <!-- QUESTION 6 -->
+
+                <div class="couple-question" data-question="6">
+
+                    <h3>
+                        Who gets more emotional?
+                    </h3>
+
+                    <div class="two-option-grid">
+
+                        <button onclick="coupleAnswer(6, 'mihi', this)">
+                            Mihi
+                        </button>
+
+                        <button onclick="coupleAnswer(6, 'labib', this)">
+                            Labib
+                        </button>
+
+                    </div>
+
+                    <p class="couple-feedback"></p>
+
+                </div>
+
+
+                <!-- QUESTION 7 -->
+
+                <div class="couple-question" data-question="7">
+
+                    <h3>
+                        Who is more likely to say
+                        “I miss you” first?
+                    </h3>
+
+                    <div class="two-option-grid">
+
+                        <button onclick="coupleAnswer(7, 'mihi', this)">
+                            Mihi
+                        </button>
+
+                        <button onclick="coupleAnswer(7, 'labib', this)">
+                            Labib
+                        </button>
+
+                    </div>
+
+                    <p class="couple-feedback"></p>
+
+                </div>
+
+
+                <!-- QUESTION 8 -->
+
+                <div class="couple-question" data-question="8">
+
+                    <h3>
+                        Who would plan a surprise first?
+                    </h3>
+
+                    <div class="two-option-grid">
+
+                        <button onclick="coupleAnswer(8, 'mihi', this)">
+                            Mihi
+                        </button>
+
+                        <button onclick="coupleAnswer(8, 'labib', this)">
+                            Labib
+                        </button>
+
+                    </div>
+
+                    <p class="couple-feedback"></p>
+
+                </div>
+
+
+                <div id="coupleFinal" class="couple-final">
+
+                    <p>
+                        You know us pretty well.
+                    </p>
+
+                    <span>
+                        ♡
+                    </span>
+
+                    <button class="next-btn" onclick="nextPage()">
+                        ONE LAST THING →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PAGE 14 — FINAL WISH
+        ====================================================== -->
+
+        <section class="page final-page" id="page14">
+
+            <div class="page-content final-content">
+
+                <p class="small-label">
+                    THREE YEARS OF US
+                </p>
+
+                <h2>
+                    My Wish For Us
+                </h2>
+
+                <div class="wish-text">
+
+                    <p>
+                        I don't wish for a perfect life.
+                    </p>
+
+                    <p>
+                        I just wish that no matter
+                        how life changes,
+                        we never stop understanding each other.
+                    </p>
+
+                    <p>
+                        I want us to keep our trust,
+                        keep our little conversations,
+                        keep choosing each other
+                        even on the difficult days.
+                    </p>
+
+                    <p>
+                        And one day,
+                        I want to look back at these memories
+                        and realize that this was only the beginning.
+                    </p>
+
+                    <p>
+                        I want to travel the world with you,
+                        see places we've never seen,
+                        make memories we've never imagined,
+                        and keep finding new reasons to love you.
+                    </p>
+
+                    <p class="final-love">
+                        Mihi,<br>
+                        I love you.<br>
+                        You are my everything.
+                    </p>
+
+                </div>
+
+
+                <!-- FINAL MUSIC -->
+
+                <div class="final-song-card">
+
+                    <p class="song-small">
+                        ONE SONG. A THOUSAND MEMORIES.
+                    </p>
+
+                    <p>
+                        Let this memory
+                        have its own soundtrack.
+                    </p>
+
+                    <button onclick="toggleMusic()" class="final-music-btn">
+                        ♫ PLAY / PAUSE OUR SONG
+                    </button>
+
+                </div>
+
+
+                <div class="anniversary-ending">
+
+                    <p class="anniversary-date">
+                        09 . 10 . 2023
+                        <span>—</span>
+                        09 . 10 . 2026
+                    </p>
+
+                    <h3>
+                        3 YEARS OF US.
+                    </h3>
+
+                    <p>
+                        1,095+ days.<br>
+                        Countless memories.<br>
+                        One story.
+                    </p>
+
+                    <p class="happy-anniversary">
+                        Happy 3rd Anniversary,
+                        My Love. ♡
+                    </p>
+
+                    <p class="promise">
+                        I may not be able to promise
+                        a perfect future...
+                        but I promise I'll keep working
+                        to make our future a happy one.
+                    </p>
+
+                    <p class="for-us">
+                        For you.<br>
+                        For us.
+                    </p>
+
+                    <p class="always-us">
+                        Always Us. ♡
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================== -->
+
+    <div class="page-indicator" id="pageIndicator">
+        01 / 14
+    </div>
+
+
+    <button class="nav-button prev hidden" id="prevBtn" onclick="previousPage()">
+        ←
+    </button>
+
+    <button class="nav-button next" id="nextBtn" onclick="nextPage()">
+        →
+    </button>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
 
     <script src="script.js"></script>
 
-
 </body>
-
 </html>
