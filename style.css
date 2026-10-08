@@ -1,11 +1,6 @@
-/* =========================================================
-   OUR STORY — PREMIUM PINK LOVE THEME
-   ========================================================= */
-
-
-/* =========================================================
-   01. RESET
-   ========================================================= */
+/* ============================================================
+   GLOBAL RESET
+============================================================ */
 
 * {
     margin: 0;
@@ -13,1436 +8,1504 @@
     box-sizing: border-box;
 }
 
-
 html {
     scroll-behavior: smooth;
 }
 
-
 body {
     font-family: Georgia, "Times New Roman", serif;
-
-    background: #fff5f7;
-
-    color: #4b2632;
-
-    overflow-x: hidden;
+    background:
+        radial-gradient(circle at top,
+            #ffe9f1 0%,
+            #fbd2df 35%,
+            #e8a9bf 70%,
+            #b86b88 100%);
+    color: #3f1d2d;
+    overflow: hidden;
 }
-
-
-button,
-input {
-    font-family: inherit;
-}
-
 
 button {
+    font-family: inherit;
     cursor: pointer;
 }
 
 
-/* =========================================================
-   02. COLOR VARIABLES
-   ========================================================= */
+/* ============================================================
+   GLOBAL EFFECTS
+============================================================ */
 
-:root {
+.noise {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.05;
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+}
 
-    --soft-pink: #fff5f7;
-
-    --light-pink: #f9e1e7;
-
-    --pink: #e7a0b2;
-
-    --rose: #c96f86;
-
-    --deep-rose: #8b3d55;
-
-    --dark-rose: #64283d;
-
-    --burgundy: #4b2632;
-
-    --cream: #fffaf9;
-
-    --white: #ffffff;
-
-    --gold: #b8925b;
-
+.background-hearts {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
 }
 
 
-/* =========================================================
-   03. GENERAL PAGE
-   ========================================================= */
+/* ============================================================
+   MAIN PAGE SYSTEM
+============================================================ */
+
+#story {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
 
 .page {
-
-    min-height: 100vh;
-
+    position: absolute;
+    inset: 0;
     width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 
-    position: relative;
+    display: none;
+    opacity: 0;
 
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    padding: 100px 25px;
-
-    overflow: hidden;
+    padding: 50px 25px;
 
     background:
-        radial-gradient(
-            circle at 15% 15%,
-            rgba(231, 160, 178, 0.20),
-            transparent 30%
-        ),
+        linear-gradient(
+            135deg,
+            rgba(255, 250, 252, 0.94),
+            rgba(255, 231, 239, 0.86)
+        );
 
-        radial-gradient(
-            circle at 85% 85%,
-            rgba(201, 111, 134, 0.13),
-            transparent 30%
-        ),
+    backdrop-filter: blur(12px);
 
-        var(--soft-pink);
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+
+    transform: translateX(50px);
 }
 
+.page.active {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+}
 
 .page-content {
+    position: relative;
+    z-index: 4;
 
     width: min(1100px, 100%);
+    min-height: calc(100vh - 100px);
 
-    margin: auto;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     text-align: center;
-
-    position: relative;
-
-    z-index: 5;
 }
 
 
-/* =========================================================
-   04. TYPOGRAPHY
-   ========================================================= */
+/* ============================================================
+   TEXT
+============================================================ */
 
-.eyebrow {
-
+.small-label {
     font-family: Arial, sans-serif;
-
-    font-size: 11px;
-
-    letter-spacing: 5px;
-
-    color: var(--rose);
-
-    margin-bottom: 30px;
-
+    font-size: 0.73rem;
+    letter-spacing: 0.28em;
+    color: #9d4d6f;
+    margin-bottom: 20px;
     text-transform: uppercase;
 }
 
-
-h1,
-h2,
-h3 {
-
-    font-weight: 400;
-
-    color: var(--deep-rose);
-}
-
-
-h1 {
-
-    font-size: clamp(65px, 11vw, 145px);
-
-    line-height: 0.88;
-
-    letter-spacing: -5px;
-}
-
-
-h2 {
-
-    font-size: clamp(42px, 6vw, 80px);
-
-    line-height: 1;
-
-    margin-bottom: 25px;
-}
-
-
-h3 {
-
-    font-size: clamp(24px, 4vw, 42px);
-
-    margin-top: 20px;
-
-    margin-bottom: 25px;
-}
-
-
-.subtitle,
-.description,
-.memory-text,
-.anniversary-text,
-.wish-text {
-
-    max-width: 600px;
-
-    margin: 0 auto 35px;
-
+.date-label {
     font-family: Arial, sans-serif;
-
-    font-size: 15px;
-
-    line-height: 1.9;
-
-    color: #76515d;
-}
-
-
-/* =========================================================
-   05. BUTTONS
-   ========================================================= */
-
-button {
-
-    border: 1px solid var(--rose);
-
-    background: transparent;
-
-    color: var(--deep-rose);
-
-    padding: 15px 34px;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 10px;
-
-    letter-spacing: 3px;
-
-    transition:
-        background 0.4s ease,
-        color 0.4s ease,
-        transform 0.4s ease,
-        box-shadow 0.4s ease;
-
-    margin: 10px;
-}
-
-
-button:hover {
-
-    background: var(--deep-rose);
-
-    color: white;
-
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 10px 30px rgba(139, 61, 85, 0.18);
-}
-
-
-button:active {
-
-    transform: translateY(0);
-}
-
-
-/* =========================================================
-   PAGE 1 — WELCOME
-   ========================================================= */
-
-.welcome-page {
-
-    background:
-
-        radial-gradient(
-            circle at 50% 10%,
-            rgba(231, 160, 178, 0.35),
-            transparent 35%
-        ),
-
-        linear-gradient(
-            135deg,
-            #fff6f8,
-            #f9e0e6,
-            #fff8f9
-        );
-}
-
-
-.welcome-page::before {
-
-    content: "";
-
-    width: 450px;
-
-    height: 450px;
-
-    border-radius: 50%;
-
-    background: rgba(201, 111, 134, 0.10);
-
-    position: absolute;
-
-    top: -180px;
-
-    left: -150px;
-
-    filter: blur(20px);
-}
-
-
-.welcome-page::after {
-
-    content: "";
-
-    width: 400px;
-
-    height: 400px;
-
-    border-radius: 50%;
-
-    background: rgba(231, 160, 178, 0.15);
-
-    position: absolute;
-
-    bottom: -180px;
-
-    right: -150px;
-
-    filter: blur(20px);
-}
-
-
-.welcome-page .date {
-
-    font-family: Arial, sans-serif;
-
-    font-size: 12px;
-
-    letter-spacing: 7px;
-
-    color: var(--rose);
-
-    margin-top: 35px;
-}
-
-
-/* =========================================================
-   PAGE 2 — FIRST QUIZ
-   ========================================================= */
-
-#page2 {
-
-    background:
-        linear-gradient(
-            180deg,
-            #fff5f7,
-            #f8e1e7
-        );
-}
-
-
-#page2 h2 {
-
-    max-width: 750px;
-
-    margin-left: auto;
-
-    margin-right: auto;
-}
-
-
-.quiz {
-
-    display: grid;
-
-    grid-template-columns: repeat(2, minmax(200px, 320px));
-
-    justify-content: center;
-
-    gap: 15px;
-
-    margin: 45px auto;
-
-    max-width: 700px;
-}
-
-
-.quiz-option {
-
-    width: 100%;
-
-    min-height: 60px;
-
-    margin: 0;
-
-    border: 1px solid rgba(139, 61, 85, 0.25);
-
-    background: rgba(255, 255, 255, 0.45);
-
-    backdrop-filter: blur(10px);
-
-    color: var(--deep-rose);
-
-    font-size: 12px;
-
-    letter-spacing: 1px;
-}
-
-
-.quiz-option:hover {
-
-    background: var(--deep-rose);
-
-    color: white;
-}
-
-
-.quiz-message {
-
-    min-height: 25px;
-
-    margin-bottom: 20px;
-
-    color: var(--rose);
-
-    font-family: Arial, sans-serif;
-
-    font-size: 14px;
-}
-
-
-/* =========================================================
-   MEMORY PAGES
-   ========================================================= */
-
-.memory-page {
-
-    background:
-
-        radial-gradient(
-            circle at 10% 80%,
-            rgba(231, 160, 178, 0.18),
-            transparent 35%
-        ),
-
-        #fff7f8;
-}
-
-
-.memory-card {
-
-    width: min(700px, 90%);
-
-    min-height: 120px;
-
-    margin: 45px auto;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    flex-direction: column;
-
-    border: 1px solid rgba(139, 61, 85, 0.18);
-
-    background: rgba(255,255,255,0.5);
-
-    box-shadow:
-        0 20px 60px rgba(139, 61, 85, 0.08);
-
-    transition: 0.5s;
-}
-
-
-.memory-card:hover {
-
-    transform: translateY(-5px);
-
-    box-shadow:
-        0 25px 70px rgba(139, 61, 85, 0.14);
-}
-
-
-.date-reveal {
-
-    font-size: 26px;
-
-    letter-spacing: 3px;
-
-    color: var(--deep-rose);
-
+    letter-spacing: 0.22em;
+    font-size: 0.8rem;
+    color: #9b4a68;
     margin-bottom: 15px;
 }
 
-
-.memory-card p {
-
-    font-family: Arial, sans-serif;
-
-    font-size: 11px;
-
-    letter-spacing: 2px;
-
-    color: var(--rose);
+.location {
+    font-style: italic;
+    color: #86606e;
+    margin-bottom: 30px;
 }
 
-
-/* =========================================================
-   PHOTO GALLERIES
-   ========================================================= */
-
-.photo-gallery {
-
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 18px;
-
-    width: min(1000px, 100%);
-
-    margin: 50px auto;
-}
-
-
-.photo-gallery img {
-
-    width: 100%;
-
-    height: 420px;
-
-    object-fit: cover;
-
-    display: block;
-
-    border-radius: 2px;
-
-    box-shadow:
-        0 20px 50px rgba(75, 38, 50, 0.12);
-
-    transition:
-        transform 0.7s ease,
-        box-shadow 0.7s ease;
-}
-
-
-.photo-gallery img:hover {
-
-    transform: scale(1.025);
-
-    box-shadow:
-        0 25px 65px rgba(75, 38, 50, 0.18);
-}
-
-
-/* =========================================================
-   PAGE 4 — RAIN
-   ========================================================= */
-
-.rain-page {
-
-    background:
-
-        linear-gradient(
-            160deg,
-            #f7dce3,
-            #fff5f7,
-            #f2d5de
-        );
-}
-
-
-.rain-page h3 {
-
-    color: var(--rose);
-}
-
-
-.reveal-photo {
-
+h1,
+h2,
+h3,
+p {
     position: relative;
+}
 
-    width: min(650px, 95%);
+h1,
+h2 {
+    font-weight: 400;
+}
 
-    margin: 50px auto;
+h2 {
+    font-size: clamp(2.3rem, 6vw, 4.8rem);
+    line-height: 1.05;
+    margin-bottom: 20px;
+}
 
-    overflow: hidden;
+p {
+    line-height: 1.8;
 }
 
 
-.reveal-photo img {
+/* ============================================================
+   PAGE 1 — HERO
+============================================================ */
 
-    width: 100%;
-
-    max-height: 650px;
-
-    object-fit: cover;
-
-    display: block;
-
-    filter: blur(12px);
-
-    transition:
-        filter 1s ease,
-        transform 1s ease;
+.hero-page {
+    text-align: center;
 }
 
+.main-title {
+    font-size: clamp(4rem, 11vw, 9rem);
+    color: #7f314f;
+    line-height: 0.95;
+}
 
-.reveal-photo button {
+.title-line {
+    width: 100px;
+    height: 1px;
+    margin: 25px auto;
+    background: #a54c6f;
+}
 
+.subtitle {
+    font-size: 1.25rem;
+    color: #6d3b4d;
+}
+
+.subtitle span {
+    color: #a13d63;
+}
+
+.hero-text {
+    max-width: 520px;
+    margin: 25px auto 35px;
+    color: #71505c;
+    font-size: 1.05rem;
+}
+
+.music-start-btn,
+.final-music-btn {
+    border: 1px solid rgba(116, 44, 75, 0.35);
+    background: rgba(255,255,255,0.42);
+    color: #6f2947;
+    padding: 16px 30px;
+    border-radius: 999px;
+    letter-spacing: 0.1em;
+    font-size: 0.8rem;
+    transition: 0.3s ease;
+}
+
+.music-start-btn span {
+    margin-right: 8px;
+}
+
+.music-start-btn:hover,
+.final-music-btn:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.7);
+}
+
+.music-note {
+    margin-top: 13px;
+    font-size: 0.75rem;
+    color: #987785;
+}
+
+.scroll-hint {
     position: absolute;
-
-    top: 50%;
-
+    bottom: 22px;
     left: 50%;
-
-    transform: translate(-50%, -50%);
-
-    margin: 0;
-
-    background: rgba(255,255,255,0.85);
-
-    backdrop-filter: blur(10px);
-}
-
-
-/* =========================================================
-   PAGE 5 — MEMORY QUIZ
-   ========================================================= */
-
-.blurred-memory {
-
-    width: min(550px, 90%);
-
-    height: 300px;
-
-    margin: 40px auto;
+    transform: translateX(-50%);
+    z-index: 8;
 
     display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background:
-        linear-gradient(
-            135deg,
-            #e5a2b4,
-            #f6d6de
-        );
-
-    filter: blur(1px);
-
-    box-shadow:
-        0 25px 60px rgba(139,61,85,0.15);
-}
-
-
-.blurred-memory p {
+    flex-direction: column;
+    gap: 5px;
 
     font-family: Arial, sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: #8d5367;
+    text-transform: uppercase;
+}
 
-    font-size: 11px;
-
-    letter-spacing: 5px;
-
-    color: white;
+.arrow {
+    font-size: 1.1rem;
+    animation: bounce 1.6s infinite;
 }
 
 
-/* =========================================================
-   PAGE 6 — BIRTHDAY
-   ========================================================= */
+/* ============================================================
+   MUSIC FLOATING BUTTON
+============================================================ */
 
-.birthday-page {
+.floating-music {
+    position: fixed;
+    right: 25px;
+    top: 22px;
+    z-index: 1000;
+
+    border: 1px solid rgba(119, 44, 74, 0.22);
+    background: rgba(255, 255, 255, 0.55);
+
+    backdrop-filter: blur(10px);
+
+    color: #6c2846;
+
+    border-radius: 999px;
+    padding: 10px 15px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 0.72rem;
+    letter-spacing: 0.09em;
+
+    transition: 0.3s ease;
+}
+
+.floating-music:hover {
+    transform: translateY(-2px);
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ============================================================
+   QUIZ PAGES
+============================================================ */
+
+.quiz-page {
+    max-width: 900px;
+}
+
+.question-description {
+    color: #815866;
+    margin-bottom: 30px;
+}
+
+.options-grid {
+    width: min(650px, 100%);
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+
+    margin-top: 15px;
+}
+
+.option-btn {
+    min-height: 62px;
+
+    border: 1px solid rgba(128, 54, 81, 0.18);
+    background: rgba(255,255,255,0.5);
+
+    color: #613146;
+
+    border-radius: 18px;
+    padding: 15px 20px;
+
+    font-size: 0.95rem;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.option-btn:hover {
+    transform: translateY(-4px);
+    background: rgba(255,255,255,0.78);
+    box-shadow: 0 15px 30px rgba(91, 32, 53, 0.1);
+}
+
+.option-btn.correct {
+    background: rgba(181, 221, 190, 0.8);
+    border-color: rgba(51, 123, 68, 0.35);
+}
+
+.option-btn.wrong {
+    background: rgba(236, 177, 191, 0.7);
+    border-color: rgba(147, 50, 78, 0.3);
+}
+
+.quiz-result {
+    min-height: 55px;
+    margin-top: 25px;
+
+    color: #7a3c58;
+    font-size: 1rem;
+}
+
+.next-btn {
+    margin-top: 32px;
+
+    border: 1px solid rgba(120, 44, 73, 0.3);
 
     background:
         linear-gradient(
             135deg,
-            #fff8f9,
-            #f8dfe5
+            rgba(255,255,255,0.72),
+            rgba(255, 220, 232, 0.8)
         );
+
+    color: #6e2948;
+
+    border-radius: 999px;
+
+    padding: 14px 26px;
+
+    letter-spacing: 0.12em;
+    font-size: 0.74rem;
+
+    transition: 0.3s ease;
+}
+
+.next-btn:hover {
+    transform: translateY(-3px);
 }
 
 
-.birthday-gallery {
+/* ============================================================
+   MEMORY GALLERIES
+============================================================ */
+
+.memory-gallery {
+    width: 100%;
+    margin: 20px auto 30px;
 
     display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 20px;
-
-    max-width: 1000px;
-
-    margin: 50px auto;
+    gap: 16px;
 }
 
+.three-photos {
+    grid-template-columns: repeat(3, 1fr);
+}
 
-.birthday-photo {
+.memory-photo {
+    position: relative;
 
     overflow: hidden;
 
+    border-radius: 22px;
+
+    min-height: 320px;
+
     box-shadow:
-        0 20px 50px rgba(75,38,50,0.12);
+        0 20px 50px rgba(89, 24, 46, 0.12);
 }
 
-
-.birthday-photo img {
-
+.memory-photo img {
     width: 100%;
-
-    height: 430px;
+    height: 100%;
 
     object-fit: cover;
 
     display: block;
+
+    transition:
+        transform 0.8s ease,
+        filter 0.8s ease;
+}
+
+.hidden-photo img {
+    filter: blur(18px);
+    transform: scale(1.08);
+}
+
+.hidden-photo.revealed img {
+    filter: blur(0);
+    transform: scale(1);
+}
+
+.photo-cover {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(118, 36, 70, 0.75),
+            rgba(226, 146, 174, 0.65)
+        );
+
+    color: white;
+
+    transition:
+        opacity 0.6s ease,
+        visibility 0.6s ease;
+}
+
+.photo-cover span {
+    font-family: Arial, sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+}
+
+.hidden-photo.revealed .photo-cover {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   MEMORY TEXT
+============================================================ */
+
+.memory-text,
+.birthday-text,
+.rain-memory-text {
+    max-width: 700px;
+    margin-top: 15px;
+}
+
+.memory-text p,
+.birthday-text p,
+.rain-memory-text p {
+    margin-bottom: 10px;
+    color: #73505e;
+}
+
+.highlight-line {
+    color: #943b61 !important;
+    font-style: italic;
+}
+
+.memory-text span {
+    color: #87334f;
+}
+
+.final-memory-line {
+    margin-top: 20px;
+    color: #76304d !important;
+}
+
+
+/* ============================================================
+   INLINE QUIZ
+============================================================ */
+
+.inline-quiz {
+    width: min(700px, 100%);
+    margin: 35px auto 0;
+    padding: 25px;
+
+    border-radius: 25px;
+
+    background:
+        rgba(255,255,255,0.4);
+
+    border: 1px solid rgba(119, 42, 70, 0.12);
+}
+
+.inline-quiz h3 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.mini-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.mini-options button {
+    background: rgba(255,255,255,0.48);
+
+    border: 1px solid rgba(119, 43, 70, 0.14);
+
+    border-radius: 15px;
+
+    padding: 13px;
+
+    color: #6e3349;
+
+    transition: 0.25s ease;
+}
+
+.mini-options button:hover {
+    background: rgba(255,255,255,0.75);
+}
+
+.mini-result {
+    margin-top: 15px;
+    color: #823852;
+}
+
+
+/* ============================================================
+   PAGE 5 — RAIN
+============================================================ */
+
+.rain-page {
+    position: absolute;
+}
+
+.rain-page::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            rgba(40, 41, 70, 0.12),
+            rgba(109, 38, 65, 0.13)
+        );
+
+    pointer-events: none;
+}
+
+.rain-overlay {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.rain-page.raining .rain-overlay {
+    opacity: 1;
+
+    background-image:
+        repeating-linear-gradient(
+            110deg,
+            transparent 0px,
+            transparent 22px,
+            rgba(255,255,255,0.33) 23px,
+            transparent 24px
+        );
+
+    background-size: 90px 90px;
+
+    animation: rainfall 0.65s linear infinite;
+}
+
+.single-memory {
+    width: min(650px, 100%);
+    margin: 0 auto;
+}
+
+.big-memory-photo {
+    position: relative;
+
+    min-height: 430px;
+
+    border-radius: 25px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 30px 70px rgba(79, 30, 49, 0.2);
+}
+
+.big-memory-photo img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.wardah-text {
+    color: #8a3657 !important;
+}
+
+
+/* ============================================================
+   BIRTHDAY
+============================================================ */
+
+.birthday-gallery .memory-photo {
+    min-height: 300px;
+}
+
+
+/* ============================================================
+   SECRET MEMORY
+============================================================ */
+
+.secret-content {
+    max-width: 900px;
+}
+
+.secret-envelope {
+    position: relative;
+
+    width: 290px;
+    height: 230px;
+
+    margin: 20px auto 35px;
+
+    cursor: pointer;
+}
+
+.envelope {
+    position: absolute;
+    inset: 20px 0 0;
+
+    width: 270px;
+    height: 180px;
+
+    margin: auto;
+
+    background: #e8b0c3;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 25px 50px rgba(104, 38, 61, 0.18);
+
+    transform-style: preserve-3d;
+
+    transition: 0.8s ease;
+}
+
+.secret-envelope:hover .envelope {
+    transform: translateY(-8px);
+}
+
+.envelope-flap {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 0;
+    height: 0;
+
+    border-left: 135px solid transparent;
+    border-right: 135px solid transparent;
+    border-top: 95px solid #cf809d;
+
+    transform-origin: top center;
 
     transition: transform 0.8s ease;
 }
 
+.envelope-paper {
+    position: absolute;
 
-.birthday-photo:hover img {
+    width: 220px;
+    height: 145px;
 
-    transform: scale(1.05);
-}
+    left: 25px;
+    top: 20px;
 
-
-/* =========================================================
-   PAGE 7 — IMPORTANT QUESTION
-   ========================================================= */
-
-.question-page {
-
-    background:
-
-        radial-gradient(
-            circle at 50% 50%,
-            rgba(231,160,178,0.25),
-            transparent 50%
-        ),
-
-        #fff4f7;
-}
-
-
-/* =========================================================
-   PAGE 8 — ANNIVERSARY
-   ========================================================= */
-
-.anniversary-page {
-
-    background:
-
-        radial-gradient(
-            circle at center,
-            #f4c4d0 0%,
-            #d9899d 35%,
-            #8b3d55 100%
-        );
-
-    color: white;
-}
-
-
-.anniversary-page h1,
-.anniversary-page h2,
-.anniversary-page .eyebrow {
-
-    color: white;
-}
-
-
-.anniversary-page h1 {
-
-    font-size: clamp(55px, 9vw, 120px);
-}
-
-
-.anniversary-page h2 {
-
-    font-size: clamp(65px, 12vw, 160px);
-
-    letter-spacing: -8px;
-
-    margin-top: 20px;
-}
-
-
-.anniversary-page .anniversary-text {
-
-    color: rgba(255,255,255,0.85);
-}
-
-
-.anniversary-date {
-
-    margin-top: 40px;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 12px;
-
-    letter-spacing: 8px;
-
-    color: rgba(255,255,255,0.85);
-}
-
-
-.anniversary-page button {
-
-    border-color: rgba(255,255,255,0.6);
-
-    color: white;
-}
-
-
-.anniversary-page button:hover {
-
-    background: white;
-
-    color: var(--deep-rose);
-}
-
-
-/* =========================================================
-   PAGE 9 — THEN & NOW
-   ========================================================= */
-
-.then-now-page {
-
-    background: #fff6f8;
-}
-
-
-.comparison {
+    background: #fff5f8;
 
     display: flex;
-
-    width: min(900px, 95%);
-
-    height: 430px;
-
-    margin: 50px auto;
-
-    overflow: hidden;
-
-    position: relative;
-
-    box-shadow:
-        0 25px 70px rgba(75,38,50,0.15);
-}
-
-
-.then,
-.now {
-
-    flex: 1;
-
-    display: flex;
-
     flex-direction: column;
-
     justify-content: center;
-
     align-items: center;
 
-    position: relative;
+    gap: 5px;
+
+    color: #843450;
+
+    font-size: 0.75rem;
+    letter-spacing: 0.17em;
+
+    border-radius: 5px;
+
+    z-index: 0;
 }
 
-
-.then {
-
-    background: #ead0d7;
+.secret-envelope.opened .envelope-flap {
+    transform: rotateX(180deg);
 }
 
-
-.now {
-
-    background: #c9788f;
+.secret-envelope.opened .envelope {
+    transform: translateY(15px);
 }
 
+.secret-reveal {
+    display: none;
+    width: min(720px, 100%);
 
-.then p,
-.now p {
-
-    font-family: Arial, sans-serif;
-
-    font-size: 11px;
-
-    letter-spacing: 5px;
-
-    color: white;
-
-    margin-bottom: 15px;
+    animation: revealSecret 1s ease forwards;
 }
 
-
-.then span,
-.now span {
-
-    font-size: 50px;
-
-    color: white;
+.secret-reveal.show {
+    display: block;
 }
 
-
-.slider {
-
-    width: min(700px, 90%);
-
-    margin: 30px auto;
-}
-
-
-.slider input {
-
-    width: 100%;
-
-    accent-color: var(--deep-rose);
-}
-
-
-/* =========================================================
-   PAGE 10 — CURRENT
-   ========================================================= */
-
-.current-page {
-
-    background:
-
-        linear-gradient(
-            145deg,
-            #fff7f9,
-            #f4d6df
-        );
-}
-
-
-.current-gallery {
-
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 20px;
-
-    max-width: 1000px;
-
-    margin: 50px auto;
-}
-
-
-.current-gallery img {
-
-    width: 100%;
-
-    height: 450px;
-
-    object-fit: cover;
-
-    box-shadow:
-        0 20px 50px rgba(75,38,50,0.12);
-
-    transition: 0.7s ease;
-}
-
-
-.current-gallery img:hover {
-
-    transform: translateY(-10px);
-
-    box-shadow:
-        0 30px 65px rgba(75,38,50,0.18);
-}
-
-
-.current-page h3 {
-
-    font-size: 55px;
-
-    color: var(--deep-rose);
-
-    margin-top: 40px;
-}
-
-
-/* =========================================================
-   PAGE 11 — COUPLE QUIZ
-   ========================================================= */
-
-.couple-quiz-page {
-
-    background:
-
-        radial-gradient(
-            circle at 80% 20%,
-            rgba(231,160,178,0.22),
-            transparent 30%
-        ),
-
-        #fff6f8;
-}
-
-
-.couple-question {
-
-    width: min(650px, 95%);
+.proposal-photo {
+    width: min(620px, 100%);
 
     margin: 25px auto;
 
-    padding: 30px;
+    border-radius: 18px;
 
-    background: rgba(255,255,255,0.55);
-
-    border: 1px solid rgba(139,61,85,0.12);
+    overflow: hidden;
 
     box-shadow:
-        0 15px 40px rgba(75,38,50,0.06);
+        0 20px 50px rgba(80, 30, 49, 0.18);
 }
 
-
-.couple-question p {
-
-    font-size: 19px;
-
-    color: var(--deep-rose);
-
-    margin-bottom: 15px;
-}
-
-
-.couple-question button {
-
-    padding: 12px 25px;
-
-    margin: 5px;
-}
-
-
-/* =========================================================
-   PAGE 12 — FINAL
-   ========================================================= */
-
-.final-page {
-
+.proposal-photo img {
     display: block;
+    width: 100%;
+}
 
-    padding-top: 120px;
+.secret-line {
+    font-style: italic;
+    color: #865363;
+}
 
-    padding-bottom: 120px;
+.secret-description {
+    color: #744b59;
+}
 
+
+/* ============================================================
+   PAGE 10 — US
+============================================================ */
+
+.us-page {
     background:
-
-        linear-gradient(
-            180deg,
-            #fff4f7 0%,
-            #f6d9e1 45%,
-            #c9788f 75%,
-            #8b3d55 100%
+        radial-gradient(
+            circle at center,
+            rgba(142, 53, 88, 0.18),
+            rgba(255, 240, 246, 0.96)
         );
 }
 
-
-.wish-section,
-.song-section,
-.final-section {
-
-    max-width: 900px;
-
-    margin: 0 auto;
-
-    padding: 120px 20px;
-}
-
-
-.wish-section h2 {
-
-    color: var(--deep-rose);
-}
-
-
-.wish-text {
-
-    font-size: 18px;
-
-    line-height: 2.1;
-
-    color: #76515d;
-}
-
-
-/* =========================================================
-   SONG
-   ========================================================= */
-
-.song-section {
-
-    border-top: 1px solid rgba(139,61,85,0.15);
-
-    border-bottom: 1px solid rgba(139,61,85,0.15);
-}
-
-
-.song-section h2 {
-
-    margin-bottom: 40px;
-}
-
-
-#playSong {
-
-    min-width: 220px;
-
-    background: rgba(255,255,255,0.35);
-}
-
-
-/* =========================================================
-   FINAL MESSAGE
-   ========================================================= */
-
-.final-section {
-
-    color: white;
-
+.cinematic-content {
     text-align: center;
 }
 
+.cinematic-text {
+    margin-top: 25px;
+}
 
-.final-section .eyebrow {
+.fade-line {
+    color: #7a5360;
+    font-size: 1rem;
+    margin-bottom: 13px;
+}
 
-    color: white;
+.fade-line.big {
+    margin-top: 35px;
+    font-size: 1.4rem;
+    letter-spacing: 0.15em;
+    color: #8a3756;
+}
+
+.became-text {
+    margin-top: 45px;
+    font-family: Arial, sans-serif;
+
+    letter-spacing: 0.35em;
+    font-size: 0.9rem;
+
+    color: #8c4160;
+}
+
+.us-text {
+    font-size: clamp(5rem, 14vw, 11rem);
+    color: #762846;
+    margin: 0;
+    letter-spacing: 0.06em;
+}
+
+.time-text {
+    font-size: 1.6rem;
+    color: #a45070;
+    margin-top: 8px;
+}
+
+.us-description {
+    margin-top: 30px;
+    color: #77515e;
 }
 
 
-.final-date {
+/* ============================================================
+   PAGE 11 — THEN & NOW
+============================================================ */
+
+.then-now-intro {
+    color: #825969;
+    margin-bottom: 35px;
+}
+
+.comparison-wrapper {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+
+    align-items: stretch;
+
+    gap: 20px;
+}
+
+.comparison-card {
+    padding: 32px 28px;
+
+    border-radius: 25px;
+
+    background: rgba(255,255,255,0.45);
+
+    border: 1px solid rgba(121,44,70,0.12);
+
+    text-align: left;
+}
+
+.comparison-card p {
+    color: #755461;
+    margin-top: 14px;
+}
+
+.comparison-label {
+    font-family: Arial, sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: #9b4566;
+}
+
+.comparison-divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 2rem;
+    color: #9c4f6a;
+}
+
+.then-now-closing {
+    margin-top: 35px;
+    max-width: 700px;
+
+    color: #794d5c;
+}
+
+
+/* ============================================================
+   PAGE 12 — CURRENT
+============================================================ */
+
+.current-page {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,248,251,0.96),
+            rgba(249,218,230,0.88)
+        );
+}
+
+.current-intro {
+    margin-bottom: 35px;
+    color: #805766;
+}
+
+.current-grid {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 22px;
+}
+
+.flip-card {
+    height: 430px;
+    perspective: 1200px;
+
+    cursor: pointer;
+}
+
+.flip-card-inner {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    transition:
+        transform 0.9s cubic-bezier(.2,.7,.2,1);
+
+    transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner,
+.flip-card:focus .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    inset: 0;
+
+    border-radius: 25px;
+
+    overflow: hidden;
+
+    backface-visibility: hidden;
+
+    box-shadow:
+        0 20px 50px rgba(87,31,49,0.16);
+}
+
+.flip-card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.flip-card-back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #792e4e,
+            #b85d7c
+        );
+
+    color: white;
+
+    transform: rotateY(180deg);
+}
+
+.flip-card-back p {
+    font-size: 1.6rem;
+}
+
+.flip-hint {
+    margin-top: 20px;
+    color: #936174;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+}
+
+
+/* ============================================================
+   PAGE 13 — COUPLE QUIZ
+============================================================ */
+
+.couple-quiz-page {
+    max-width: 800px;
+}
+
+.quiz-progress {
+    font-family: Arial, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.13em;
+    color: #9e5b74;
+
+    margin-bottom: 30px;
+}
+
+.couple-question {
+    display: none;
+
+    width: min(650px, 100%);
+}
+
+.couple-question.active-couple {
+    display: block;
+
+    animation: coupleFade 0.5s ease forwards;
+}
+
+.couple-question h3 {
+    font-size: 1.65rem;
+    font-weight: 400;
+    margin-bottom: 25px;
+}
+
+.two-option-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.two-option-grid button {
+    border: 1px solid rgba(120, 45, 73, 0.15);
+
+    background: rgba(255,255,255,0.55);
+
+    color: #653248;
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    font-size: 1rem;
+
+    transition: 0.3s ease;
+}
+
+.two-option-grid button:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.78);
+}
+
+.two-option-grid button.selected-correct {
+    background: rgba(182,223,191,0.85);
+}
+
+.two-option-grid button.selected-wrong {
+    background: rgba(235,181,195,0.85);
+}
+
+.couple-feedback {
+    min-height: 45px;
+    margin-top: 20px;
+    color: #814059;
+}
+
+.couple-final {
+    display: none;
+
+    margin-top: 35px;
+}
+
+.couple-final p {
+    font-size: 1.3rem;
+    color: #73354e;
+}
+
+.couple-final span {
+    display: block;
+    font-size: 2rem;
+    margin-top: 10px;
+}
+
+
+/* ============================================================
+   PAGE 14 — FINAL
+============================================================ */
+
+.final-page {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(223, 132, 163, 0.22),
+            rgba(255,245,249,0.98)
+        );
+}
+
+.final-content {
+    max-width: 900px;
+}
+
+.wish-text {
+    max-width: 760px;
+
+    color: #704d5a;
+
+    margin-bottom: 35px;
+}
+
+.wish-text p {
+    margin-bottom: 17px;
+}
+
+.final-love {
+    font-size: 1.35rem;
+    color: #7c2f50;
+
+    margin-top: 30px;
+}
+
+.final-song-card {
+    width: min(600px, 100%);
+
+    padding: 25px;
+
+    margin-top: 15px;
+
+    border-radius: 24px;
+
+    background: rgba(255,255,255,0.48);
+
+    border:
+        1px solid rgba(118,43,70,0.12);
+}
+
+.song-small {
+    font-family: Arial, sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: #9f5873;
+
+    margin-bottom: 8px;
+}
+
+.anniversary-ending {
+    width: min(700px, 100%);
+
+    margin-top: 55px;
+
+    padding-bottom: 100px;
+}
+
+.anniversary-date {
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.16em;
+
+    color: #9a4b69;
+}
+
+.anniversary-date span {
+    margin: 0 8px;
+}
+
+.anniversary-ending h3 {
+    font-size: clamp(2.3rem, 6vw, 4rem);
+
+    font-weight: 400;
+
+    color: #792d4d;
+
+    margin: 18px 0;
+}
+
+.happy-anniversary {
+    margin-top: 30px;
+
+    font-size: 1.25rem;
+
+    color: #8b3457;
+}
+
+.promise {
+    margin-top: 25px;
+
+    color: #805565;
+}
+
+.for-us {
+    margin-top: 25px;
+
+    color: #8c3e5b;
+}
+
+.always-us {
+    font-size: 1.5rem;
+
+    margin-top: 28px;
+
+    color: #742846;
+}
+
+
+/* ============================================================
+   NAVIGATION
+============================================================ */
+
+.page-indicator {
+    position: fixed;
+
+    left: 25px;
+    bottom: 22px;
+
+    z-index: 1000;
 
     font-family: Arial, sans-serif;
 
-    font-size: 12px;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
 
-    letter-spacing: 5px;
+    color: #7c4258;
+}
 
-    margin-bottom: 50px;
+.nav-button {
+    position: fixed;
 
-    opacity: 0.9;
+    bottom: 18px;
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(119,44,72,0.18);
+
+    background:
+        rgba(255,255,255,0.5);
+
+    backdrop-filter: blur(10px);
+
+    color: #7a3450;
+
+    z-index: 1000;
+
+    transition: 0.3s ease;
+}
+
+.nav-button:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.75);
+}
+
+.nav-button.prev {
+    left: 88px;
+}
+
+.nav-button.next {
+    right: 25px;
 }
 
 
-.final-section h1 {
+/* ============================================================
+   ANIMATIONS
+============================================================ */
 
-    color: white;
+@keyframes bounce {
 
-    font-size: clamp(60px, 10vw, 130px);
-
-    margin-bottom: 50px;
-}
-
-
-.final-section > p {
-
-    font-family: Arial, sans-serif;
-
-    font-size: 16px;
-
-    line-height: 2;
-
-    opacity: 0.9;
-}
-
-
-.final-section h2 {
-
-    color: white;
-
-    font-size: clamp(30px, 5vw, 55px);
-
-    margin-top: 60px;
-}
-
-
-.ending {
-
-    margin-top: 60px;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 13px !important;
-
-    letter-spacing: 1px;
-
-    opacity: 0.8 !important;
-}
-
-
-/* =========================================================
-   06. RESPONSIVE — TABLET
-   ========================================================= */
-
-@media (max-width: 800px) {
-
-    .page {
-
-        padding: 80px 20px;
-
+    0%, 100% {
+        transform: translateY(0);
     }
 
-
-    .quiz {
-
-        grid-template-columns: 1fr;
-
-        max-width: 500px;
-
-    }
-
-
-    .photo-gallery,
-    .birthday-gallery,
-    .current-gallery {
-
-        grid-template-columns: 1fr;
-
-        max-width: 600px;
-
-    }
-
-
-    .photo-gallery img,
-    .birthday-photo img,
-    .current-gallery img {
-
-        height: 500px;
-
-    }
-
-
-    .comparison {
-
-        height: 350px;
-
+    50% {
+        transform: translateY(7px);
     }
 
 }
 
-
-/* =========================================================
-   07. RESPONSIVE — MOBILE
-   ========================================================= */
-
-@media (max-width: 500px) {
-
-    .page {
-
-        padding: 70px 18px;
-
-    }
-
-
-    .eyebrow {
-
-        font-size: 9px;
-
-        letter-spacing: 3px;
-
-        margin-bottom: 22px;
-
-    }
-
-
-    h1 {
-
-        letter-spacing: -3px;
-
-    }
-
-
-    h2 {
-
-        font-size: 42px;
-
-    }
-
-
-    h3 {
-
-        font-size: 28px;
-
-    }
-
-
-    .subtitle,
-    .description,
-    .memory-text,
-    .anniversary-text {
-
-        font-size: 13px;
-
-        line-height: 1.8;
-
-    }
-
-
-    button {
-
-        width: auto;
-
-        padding: 14px 22px;
-
-        font-size: 9px;
-
-        letter-spacing: 2px;
-
-    }
-
-
-    .photo-gallery,
-    .birthday-gallery,
-    .current-gallery {
-
-        gap: 14px;
-
-    }
-
-
-    .photo-gallery img,
-    .birthday-photo img,
-    .current-gallery img {
-
-        height: 430px;
-
-    }
-
-
-    .comparison {
-
-        height: 300px;
-
-        flex-direction: column;
-
-    }
-
-
-    .then,
-    .now {
-
-        min-height: 150px;
-
-    }
-
-
-    .then span,
-    .now span {
-
-        font-size: 40px;
-
-    }
-
-
-    .couple-question {
-
-        padding: 22px 15px;
-
-    }
-
-
-    .couple-question p {
-
-        font-size: 16px;
-
-    }
-
-
-    .wish-section,
-    .song-section,
-    .final-section {
-
-        padding: 90px 10px;
-
-    }
-
-
-    .wish-text {
-
-        font-size: 15px;
-
-    }
-
-
-    .final-section h1 {
-
-        font-size: 65px;
-
-    }
-
-
-    .final-section h2 {
-
-        font-size: 30px;
-
-    }
-
-}
-
-
-/* =========================================================
-   08. SIMPLE FADE ANIMATION
-   ========================================================= */
-
-.page-content {
-
-    animation: pageFade 1.2s ease both;
-}
-
-
-@keyframes pageFade {
+@keyframes rainfall {
 
     from {
-
-        opacity: 0;
-
-        transform: translateY(20px);
-
+        background-position: 0 0;
     }
 
     to {
+        background-position: -80px 100px;
+    }
 
+}
+
+@keyframes revealSecret {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+    }
+
+    to {
         opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 
+}
+
+@keyframes coupleFade {
+
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
         transform: translateY(0);
-
     }
 
 }
 
 
-/* =========================================================
-   09. IMAGE POLISH
-   ========================================================= */
+/* ============================================================
+   HEART PARTICLES
+============================================================ */
 
-img {
+.heart {
+    position: fixed;
 
-    max-width: 100%;
+    bottom: -30px;
 
-    user-select: none;
+    pointer-events: none;
+
+    color: #c46a87;
+
+    animation:
+        floatHeart linear forwards;
+
+    z-index: 1;
+}
+
+@keyframes floatHeart {
+
+    from {
+        opacity: 0;
+        transform: translateY(0) scale(0.6);
+    }
+
+    15% {
+        opacity: 0.75;
+    }
+
+    to {
+        opacity: 0;
+        transform:
+            translateY(-110vh)
+            translateX(var(--drift))
+            scale(1.15);
+    }
 
 }
 
 
-::selection {
+/* ============================================================
+   MOBILE
+============================================================ */
 
-    background: var(--pink);
+@media (max-width: 800px) {
 
-    color: white;
+    body {
+        overflow: hidden;
+    }
+
+    .page {
+        padding:
+            45px
+            18px
+            75px;
+    }
+
+    .page-content {
+        min-height:
+            calc(100vh - 120px);
+    }
+
+    .main-title {
+        font-size: clamp(3.6rem, 16vw, 6rem);
+    }
+
+    h2 {
+        font-size: clamp(2.3rem, 11vw, 4rem);
+    }
+
+    .options-grid,
+    .mini-options,
+    .two-option-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .three-photos {
+        grid-template-columns: 1fr;
+    }
+
+    .memory-photo {
+        min-height: 330px;
+    }
+
+    .comparison-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .comparison-divider {
+        padding: 3px;
+    }
+
+    .current-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .flip-card {
+        height: 480px;
+    }
+
+    .floating-music {
+        right: 15px;
+        top: 15px;
+    }
+
+    .page-indicator {
+        left: 15px;
+        bottom: 15px;
+    }
+
+    .nav-button {
+        bottom: 12px;
+    }
+
+    .nav-button.prev {
+        left: auto;
+        right: 80px;
+    }
+
+    .nav-button.next {
+        right: 20px;
+    }
+
+    .big-memory-photo {
+        min-height: 360px;
+    }
+
+    .secret-envelope {
+        transform: scale(0.9);
+    }
+
+}
+
+
+/* ============================================================
+   VERY SMALL PHONES
+============================================================ */
+
+@media (max-width: 430px) {
+
+    .page {
+        padding:
+            35px
+            14px
+            75px;
+    }
+
+    .memory-photo {
+        min-height: 290px;
+    }
+
+    .flip-card {
+        height: 390px;
+    }
+
+    .big-memory-photo {
+        min-height: 300px;
+    }
+
+    .hero-text {
+        font-size: 0.95rem;
+    }
 
 }
