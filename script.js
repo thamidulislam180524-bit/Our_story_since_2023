@@ -944,3 +944,110 @@ setInterval(() => {
     createBackgroundHeart();
 
 }, 2600);
+
+/* ============================================================
+   LOVE TIMER — SINCE 09 OCTOBER 2023
+============================================================ */
+
+const loveStartDate = new Date("2023-10-09T00:00:00");
+
+function updateLoveTimers() {
+
+    const now = new Date();
+
+    let years =
+        now.getFullYear() -
+        loveStartDate.getFullYear();
+
+    let months =
+        now.getMonth() -
+        loveStartDate.getMonth();
+
+    let days =
+        now.getDate() -
+        loveStartDate.getDate();
+
+
+    if (days < 0) {
+
+        months--;
+
+        const previousMonth =
+            new Date(
+                now.getFullYear(),
+                now.getMonth(),
+                0
+            );
+
+        days += previousMonth.getDate();
+    }
+
+
+    if (months < 0) {
+
+        years--;
+
+        months += 12;
+    }
+
+
+    const startOfToday =
+        new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate()
+        );
+
+
+    const elapsedToday =
+        now - startOfToday;
+
+
+    const hours =
+        Math.floor(
+            elapsedToday /
+            (1000 * 60 * 60)
+        );
+
+
+    const minutes =
+        Math.floor(
+            (elapsedToday %
+            (1000 * 60 * 60)) /
+            (1000 * 60)
+        );
+
+
+    const seconds =
+        Math.floor(
+            (elapsedToday %
+            (1000 * 60)) /
+            1000
+        );
+
+
+    const timerText =
+        `${years} YEARS · ` +
+        `${months} MONTHS · ` +
+        `${days} DAYS · ` +
+        `${String(hours).padStart(2, "0")}:` +
+        `${String(minutes).padStart(2, "0")}:` +
+        `${String(seconds).padStart(2, "0")}`;
+
+
+    document
+        .querySelectorAll(".love-timer-value")
+        .forEach(timer => {
+
+            timer.textContent = timerText;
+
+        });
+}
+
+
+updateLoveTimers();
+
+setInterval(
+    updateLoveTimers,
+    1000
+);
