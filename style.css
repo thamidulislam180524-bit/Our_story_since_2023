@@ -1509,3 +1509,52 @@ p {
     }
 
 }
+/* ============================================================
+   LOVE TIMER
+============================================================ */
+
+.love-timer {
+    width: 100%;
+    text-align: center;
+    margin: 35px auto 10px;
+    padding: 10px 15px;
+    opacity: 0.85;
+}
+
+.love-timer span {
+    display: block;
+    font-family: Arial, sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #9b526d;
+    margin-bottom: 7px;
+}
+
+.love-timer-value {
+    font-family: Arial, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    color: #7c3b55;
+    font-weight: 500;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .love-timer {
+        margin: 25px auto 5px;
+        padding: 8px 5px;
+    }
+
+    .love-timer span {
+        font-size: 0.55rem;
+        letter-spacing: 0.16em;
+    }
+
+    .love-timer-value {
+        font-size: 0.58rem;
+        letter-spacing: 0.07em;
+    }
+}
