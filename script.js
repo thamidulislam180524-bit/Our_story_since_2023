@@ -1,1231 +1,946 @@
-/* =========================================================
+/* ============================================================
    OUR STORY — MAIN JAVASCRIPT
-   ========================================================= */
+============================================================ */
 
 
-/* =========================================================
-   01. BASIC SETTINGS
-   ========================================================= */
+/* ============================================================
+   GLOBAL VARIABLES
+============================================================ */
+
+let currentPage = 1;
+const totalPages = 14;
+
+let musicStarted = false;
+let coupleCurrent = 1;
+let coupleFinished = false;
+
+
+/* ============================================================
+   ELEMENTS
+============================================================ */
 
 const pages = document.querySelectorAll(".page");
 
-let currentPage = 0;
+const bgMusic = document.getElementById("bgMusic");
+
+const floatingMusicBtn =
+    document.getElementById("floatingMusicBtn");
+
+const musicIcon =
+    document.getElementById("musicIcon");
+
+const musicText =
+    document.getElementById("musicText");
+
+const pageIndicator =
+    document.getElementById("pageIndicator");
+
+const prevBtn =
+    document.getElementById("prevBtn");
+
+const nextBtn =
+    document.getElementById("nextBtn");
 
 
-/* =========================================================
-   02. SHOW ONLY THE FIRST PAGE AT START
-   ========================================================= */
+/* ============================================================
+   START WEBSITE + MUSIC
+============================================================ */
 
-function initializePages() {
+function startStory() {
+
+    startMusic();
+
+    nextPage();
+}
+
+
+/* ============================================================
+   MUSIC SYSTEM
+============================================================ */
+
+function startMusic() {
+
+    if (musicStarted) {
+        return;
+    }
+
+    bgMusic.volume = 0.65;
+
+    const playPromise = bgMusic.play();
+
+    if (playPromise !== undefined) {
+
+        playPromise
+            .then(() => {
+
+                musicStarted = true;
+
+                updateMusicUI();
+
+                floatingMusicBtn.classList.remove("hidden");
+
+            })
+            .catch(() => {
+
+                /*
+                    Browser autoplay rules may block audio
+                    until the user interacts with the page.
+                */
+
+                musicStarted = false;
+
+                updateMusicUI();
+
+            });
+    }
+}
+
+
+function toggleMusic() {
+
+    if (bgMusic.paused) {
+
+        const playPromise = bgMusic.play();
+
+        if (playPromise !== undefined) {
+
+            playPromise
+                .then(() => {
+
+                    musicStarted = true;
+
+                    floatingMusicBtn.classList.remove("hidden");
+
+                    updateMusicUI();
+
+                })
+                .catch(() => {
+
+                    console.log("Music playback was blocked.");
+
+                });
+
+        }
+
+    } else {
+
+        bgMusic.pause();
+
+        updateMusicUI();
+    }
+}
+
+
+function updateMusicUI() {
+
+    if (bgMusic.paused) {
+
+        musicIcon.textContent = "♫";
+        musicText.textContent = "Play Music";
+
+    } else {
+
+        musicIcon.textContent = "Ⅱ";
+        musicText.textContent = "Music On";
+
+    }
+
+}
+
+
+/* ============================================================
+   PAGE NAVIGATION
+============================================================ */
+
+function showPage(number) {
+
+    if (number < 1) {
+        number = 1;
+    }
+
+    if (number > totalPages) {
+        number = totalPages;
+    }
+
+    currentPage = number;
 
     pages.forEach((page, index) => {
 
-        if (index === 0) {
+        if (index === currentPage - 1) {
 
-            page.style.display = "flex";
-
-            page.style.opacity = "1";
-
-            page.style.visibility = "visible";
+            page.classList.add("active");
 
         } else {
 
-            page.style.display = "none";
-
-            page.style.opacity = "0";
-
-            page.style.visibility = "hidden";
+            page.classList.remove("active");
 
         }
 
     });
 
+    updateNavigation();
+
+    updatePageIndicator();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    /*
+        Special behavior for page 5.
+    */
+
+    if (currentPage !== 5) {
+
+        const rainPage = document.getElementById("page5");
+
+        if (rainPage) {
+            rainPage.classList.remove("raining");
+        }
+
+    }
 }
 
 
-/* =========================================================
-   03. PAGE NAVIGATION
-   ========================================================= */
+function nextPage() {
 
-function nextPage(pageId) {
+    if (currentPage < totalPages) {
 
-    const targetPage = document.getElementById(pageId);
+        showPage(currentPage + 1);
 
-    if (!targetPage) {
+    }
 
-        console.error("Page not found:", pageId);
+}
+
+
+function previousPage() {
+
+    if (currentPage > 1) {
+
+        showPage(currentPage - 1);
+
+    }
+
+}
+
+
+function updatePageIndicator() {
+
+    const current =
+        String(currentPage).padStart(2, "0");
+
+    const total =
+        String(totalPages).padStart(2, "0");
+
+    pageIndicator.textContent =
+        `${current} / ${total}`;
+}
+
+
+function updateNavigation() {
+
+    if (currentPage <= 1) {
+
+        prevBtn.classList.add("hidden");
+
+    } else {
+
+        prevBtn.classList.remove("hidden");
+
+    }
+
+
+    /*
+        Hide global next button on special pages
+        where the user should use the page's own button.
+    */
+
+    const hideGlobalNext =
+        currentPage === 1 ||
+        currentPage === 13 ||
+        currentPage === 14;
+
+    if (hideGlobalNext) {
+
+        nextBtn.classList.add("hidden");
+
+    } else {
+
+        nextBtn.classList.remove("hidden");
+
+    }
+
+}
+
+
+/* ============================================================
+   GENERIC QUIZ SYSTEM
+============================================================ */
+
+function checkAnswer(button, type, resultId) {
+
+    const parent =
+        button.parentElement;
+
+    const buttons =
+        parent.querySelectorAll("button");
+
+    buttons.forEach(btn => {
+
+        btn.disabled = true;
+
+    });
+
+
+    const result =
+        document.getElementById(resultId);
+
+
+    if (type === 1) {
+
+        button.classList.add("correct");
+
+        result.innerHTML =
+            "You remembered. ♡";
+
+        showRelatedNextButton(resultId);
+
+        createHearts(5);
+
+    } else {
+
+        button.classList.add("wrong");
+
+        result.innerHTML =
+            "Not quite. The correct answer is the other memory. ♡";
+
+        /*
+            Find correct option by checking onclick code.
+        */
+
+        buttons.forEach(btn => {
+
+            const code =
+                btn.getAttribute("onclick");
+
+            if (
+                code &&
+                code.includes("checkAnswer(this, 1")
+            ) {
+
+                btn.classList.add("correct");
+
+            }
+
+        });
+
+        showRelatedNextButton(resultId);
+
+    }
+
+}
+
+
+function showRelatedNextButton(resultId) {
+
+    if (resultId === "page2-result") {
+
+        document
+            .getElementById("page2-next")
+            .classList.remove("hidden");
+
+    }
+
+    if (resultId === "page4-result") {
+
+        document
+            .getElementById("page4-next")
+            .classList.remove("hidden");
+
+    }
+
+    if (resultId === "page7-result") {
+
+        document
+            .getElementById("page7-next")
+            .classList.remove("hidden");
+
+    }
+
+    if (resultId === "page9-result") {
+
+        document
+            .getElementById("page9-next")
+            .classList.remove("hidden");
+
+    }
+
+}
+
+
+/* ============================================================
+   PAGE 3 — FIRST MEETING MINI QUIZ
+============================================================ */
+
+function miniQuiz(button, correct) {
+
+    const parent =
+        button.parentElement;
+
+    const buttons =
+        parent.querySelectorAll("button");
+
+    buttons.forEach(btn => {
+
+        btn.disabled = true;
+
+    });
+
+    const result =
+        parent.parentElement.querySelector(".mini-result");
+
+
+    if (correct) {
+
+        button.style.background =
+            "rgba(182,223,191,0.9)";
+
+        result.textContent =
+            "Exactly. You remembered. ♡";
+
+        createHearts(4);
+
+    } else {
+
+        button.style.background =
+            "rgba(235,181,195,0.9)";
+
+        result.textContent =
+            "The correct answer was: We had planned to meet after a Chemistry exam.";
+
+        buttons.forEach(btn => {
+
+            if (
+                btn.textContent.includes(
+                    "planned to meet after a Chemistry exam"
+                )
+            ) {
+
+                btn.style.background =
+                    "rgba(182,223,191,0.9)";
+
+            }
+
+        });
+
+    }
+
+}
+
+
+/* ============================================================
+   PHOTO REVEAL
+============================================================ */
+
+function revealPhoto(element) {
+
+    if (!element.classList.contains("hidden-photo")) {
+        return;
+    }
+
+    element.classList.add("revealed");
+
+    createHearts(2);
+
+}
+
+
+/* ============================================================
+   RAIN MEMORY REVEAL
+============================================================ */
+
+function revealRainMemory(element) {
+
+    element.classList.add("revealed");
+
+    const rainPage =
+        document.getElementById("page5");
+
+    rainPage.classList.add("raining");
+
+    createHearts(5);
+
+    setTimeout(() => {
+
+        rainPage.classList.remove("raining");
+
+    }, 7000);
+
+}
+
+
+/* ============================================================
+   SECRET MEMORY REVEAL
+============================================================ */
+
+function openSecretMemory() {
+
+    const envelope =
+        document.querySelector(".secret-envelope");
+
+    const reveal =
+        document.getElementById("secretReveal");
+
+
+    envelope.classList.add("opened");
+
+
+    setTimeout(() => {
+
+        reveal.classList.add("show");
+
+        createHearts(8);
+
+    }, 750);
+
+}
+
+
+/* ============================================================
+   COUPLE QUIZ
+============================================================ */
+
+const coupleAnswers = {
+
+    1: "mihi",
+    2: "labib",
+    3: "mihi",
+    4: "mihi",
+    5: "labib",
+    6: "mihi",
+    7: "mihi",
+    8: "labib"
+
+};
+
+
+function coupleAnswer(questionNumber, answer, button) {
+
+    const question =
+        document.querySelector(
+            `.couple-question[data-question="${questionNumber}"]`
+        );
+
+
+    if (
+        question.dataset.answered === "true"
+    ) {
+        return;
+    }
+
+
+    question.dataset.answered = "true";
+
+
+    const buttons =
+        question.querySelectorAll("button");
+
+
+    buttons.forEach(btn => {
+
+        btn.disabled = true;
+
+    });
+
+
+    const feedback =
+        question.querySelector(".couple-feedback");
+
+
+    const correct =
+        coupleAnswers[questionNumber];
+
+
+    if (answer === correct) {
+
+        button.classList.add(
+            "selected-correct"
+        );
+
+        feedback.textContent =
+            "You know us. ♡";
+
+        createHearts(4);
+
+    } else {
+
+        button.classList.add(
+            "selected-wrong"
+        );
+
+        feedback.textContent =
+            `Not quite — the answer is ${capitalize(correct)}. ♡`;
+
+
+        buttons.forEach(btn => {
+
+            if (
+                btn.textContent
+                    .trim()
+                    .toLowerCase() === correct
+            ) {
+
+                btn.classList.add(
+                    "selected-correct"
+                );
+
+            }
+
+        });
+
+    }
+
+
+    /*
+        Move to next question after a short pause.
+    */
+
+    setTimeout(() => {
+
+        moveToNextCoupleQuestion();
+
+    }, 1100);
+
+}
+
+
+function moveToNextCoupleQuestion() {
+
+    const current =
+        document.querySelector(
+            `.couple-question[data-question="${coupleCurrent}"]`
+        );
+
+    if (current) {
+        current.classList.remove("active-couple");
+    }
+
+
+    coupleCurrent++;
+
+
+    if (coupleCurrent > 8) {
+
+        finishCoupleQuiz();
 
         return;
 
     }
 
 
-    const oldPage = pages[currentPage];
+    const next =
+        document.querySelector(
+            `.couple-question[data-question="${coupleCurrent}"]`
+        );
 
 
-    /* Fade out old page */
+    if (next) {
 
-    oldPage.style.opacity = "0";
+        next.classList.add("active-couple");
 
-    oldPage.style.transition = "opacity 0.5s ease";
-
-
-    setTimeout(() => {
-
-        oldPage.style.display = "none";
-
-        oldPage.style.visibility = "hidden";
+    }
 
 
-        /* Show new page */
-
-        targetPage.style.display = "flex";
-
-        targetPage.style.visibility = "visible";
-
-        targetPage.style.opacity = "0";
-
-
-        window.scrollTo({
-            top: 0,
-            behavior: "instant"
-        });
-
-
-        setTimeout(() => {
-
-            targetPage.style.transition =
-                "opacity 0.8s ease";
-
-            targetPage.style.opacity = "1";
-
-        }, 50);
-
-
-        /* Update current page */
-
-        currentPage =
-            Array.from(pages).indexOf(targetPage);
-
-
-        /* Run page-specific functions */
-
-        activatePage(targetPage.id);
-
-    }, 500);
+    updateCoupleProgress();
 
 }
 
 
-/* =========================================================
-   04. PAGE-SPECIFIC ACTIONS
-   ========================================================= */
+function updateCoupleProgress() {
 
-function activatePage(pageId) {
+    const progress =
+        document.getElementById("coupleProgress");
 
-    switch (pageId) {
+    if (coupleCurrent <= 8) {
 
-        case "page3":
-
-            resetJulyMemory();
-
-            break;
-
-
-        case "page4":
-
-            resetRainMemory();
-
-            break;
-
-
-        case "page5":
-
-            resetMemoryQuiz();
-
-            break;
-
-
-        case "page6":
-
-            prepareBirthdayGallery();
-
-            break;
-
-
-        case "page9":
-
-            initializeThenNow();
-
-            break;
-
-
-        case "page10":
-
-            prepareCurrentGallery();
-
-            break;
-
-
-        case "page11":
-
-            resetCoupleQuiz();
-
-            break;
-
-
-        case "page12":
-
-            prepareFinalPage();
-
-            break;
+        progress.textContent =
+            `Question ${coupleCurrent} of 8`;
 
     }
 
 }
 
 
-/* =========================================================
-   PAGE 2
-   FIRST QUESTION
-   ========================================================= */
+function finishCoupleQuiz() {
 
-const firstQuizOptions =
-    document.querySelectorAll("#page2 .quiz-option");
+    coupleFinished = true;
 
-const firstQuizMessage =
-    document.querySelector("#page2 .quiz-message");
+    document
+        .getElementById("coupleProgress")
+        .textContent =
+        "8 of 8 complete";
 
-
-firstQuizOptions.forEach((option) => {
-
-    option.addEventListener("click", function () {
-
-        const isCorrect =
-            this.classList.contains("correct");
-
-
-        if (isCorrect) {
-
-            firstQuizMessage.textContent =
-                "You remembered. I knew you would. ♡";
-
-            firstQuizMessage.style.color =
-                "#8b3d55";
-
-
-            this.style.background =
-                "#8b3d55";
-
-            this.style.color =
-                "#ffffff";
-
-
-            createHearts(8);
-
-        } else {
-
-            firstQuizMessage.textContent =
-                "Hmm... think about the day we officially became us.";
-
-            firstQuizMessage.style.color =
-                "#c96f86";
-
-        }
-
-    });
-
-});
-
-
-/* =========================================================
-   PAGE 3
-   20 JULY MEMORY REVEAL
-   ========================================================= */
-
-const memoryCard =
-    document.querySelector(".memory-card");
-
-const julyGallery =
-    document.querySelector(".july-gallery");
-
-
-function resetJulyMemory() {
-
-    if (!julyGallery) return;
-
-
-    julyGallery.style.display = "none";
-
-    julyGallery.style.opacity = "0";
-
-
-    if (memoryCard) {
-
-        memoryCard.style.cursor = "pointer";
-
-        memoryCard.querySelector("p").textContent =
-            "Tap to reveal the memory";
-
-    }
-
-}
-
-
-if (memoryCard) {
-
-    memoryCard.addEventListener("click", function () {
-
-        if (!julyGallery) return;
-
-
-        julyGallery.style.display = "grid";
-
-
-        setTimeout(() => {
-
-            julyGallery.style.transition =
-                "opacity 1s ease";
-
-            julyGallery.style.opacity = "1";
-
-        }, 50);
-
-
-        this.querySelector("p").textContent =
-            "A little moment that became a memory.";
-
-
-        this.style.transform =
-            "scale(0.98)";
-
-
-        setTimeout(() => {
-
-            this.style.transform =
-                "scale(1)";
-
-        }, 250);
-
-    });
-
-}
-
-
-/* =========================================================
-   PAGE 4
-   BRISHTI BILASH REVEAL
-   ========================================================= */
-
-const revealPhoto =
-    document.querySelector(".reveal-photo");
-
-const rainImage =
-    revealPhoto
-        ? revealPhoto.querySelector("img")
-        : null;
-
-const rainButton =
-    revealPhoto
-        ? revealPhoto.querySelector("button")
-        : null;
-
-
-function resetRainMemory() {
-
-    if (!rainImage) return;
-
-
-    rainImage.style.filter =
-        "blur(12px)";
-
-    rainImage.style.transform =
-        "scale(1.03)";
-
-
-    if (rainButton) {
-
-        rainButton.style.display =
-            "block";
-
-        rainButton.textContent =
-            "REVEAL MEMORY";
-
-    }
-
-}
-
-
-if (rainButton) {
-
-    rainButton.addEventListener("click", function () {
-
-        rainImage.style.filter =
-            "blur(0)";
-
-        rainImage.style.transform =
-            "scale(1)";
-
-
-        this.style.opacity =
-            "0";
-
-
-        setTimeout(() => {
-
-            this.style.display =
-                "none";
-
-        }, 500);
-
-
-        createRainHearts();
-
-    });
-
-}
-
-
-/* =========================================================
-   PAGE 5
-   MEMORY QUIZ
-   ========================================================= */
-
-const memoryQuizOptions =
-    document.querySelectorAll("#page5 .quiz-option");
-
-const memoryRevealButton =
-    document.querySelector("#page5 .quiz + button");
-
-const blurredMemory =
-    document.querySelector(".blurred-memory");
-
-
-let memoryQuizAnswered = false;
-
-
-function resetMemoryQuiz() {
-
-    memoryQuizAnswered = false;
-
-
-    memoryQuizOptions.forEach((option) => {
-
-        option.style.background = "";
-
-        option.style.color = "";
-
-    });
-
-
-    if (blurredMemory) {
-
-        blurredMemory.style.filter =
-            "blur(8px)";
-
-        blurredMemory.style.backgroundImage =
-            "url('images/august.jpg')";
-
-        blurredMemory.style.backgroundSize =
-            "cover";
-
-        blurredMemory.style.backgroundPosition =
-            "center";
-
-    }
-
-
-    if (memoryRevealButton) {
-
-        memoryRevealButton.textContent =
-            "REVEAL";
-
-    }
-
-}
-
-
-memoryQuizOptions.forEach((option) => {
-
-    option.addEventListener("click", function () {
-
-        /*
-           Current correct answer:
-           Option C = Our first Brishti Bilash
-
-           Change this later if you want.
-        */
-
-        const correct =
-            this.textContent.trim() ===
-            "Our first Brishti Bilash";
-
-
-        if (correct) {
-
-            memoryQuizAnswered = true;
-
-            this.style.background =
-                "#8b3d55";
-
-            this.style.color =
-                "#ffffff";
-
-        } else {
-
-            this.style.background =
-                "#e7a0b2";
-
-            this.style.color =
-                "#ffffff";
-
-        }
-
-    });
-
-});
-
-
-if (memoryRevealButton) {
-
-    memoryRevealButton.addEventListener("click", function () {
-
-        if (blurredMemory) {
-
-            blurredMemory.style.filter =
-                "blur(0)";
-
-            blurredMemory.querySelector("p").textContent =
-                "A memory worth remembering ♡";
-
-        }
-
-
-        this.textContent =
-            "MEMORY REVEALED";
-
-    });
-
-}
-
-
-/* =========================================================
-   PAGE 6
-   BIRTHDAY PHOTO REVEAL
-   ========================================================= */
-
-const birthdayPhotos =
-    document.querySelectorAll(".birthday-photo");
-
-
-function prepareBirthdayGallery() {
-
-    birthdayPhotos.forEach((photo, index) => {
-
-        photo.style.opacity = "0";
-
-        photo.style.transform =
-            "translateY(30px)";
-
-
-        setTimeout(() => {
-
-            photo.style.transition =
-                "opacity 0.8s ease, transform 0.8s ease";
-
-            photo.style.opacity =
-                "1";
-
-            photo.style.transform =
-                "translateY(0)";
-
-        }, index * 300);
-
-    });
-
-}
-
-
-/* =========================================================
-   PAGE 7
-   IMPORTANT QUESTION
-   ========================================================= */
-
-const importantQuizOptions =
-    document.querySelectorAll("#page7 .quiz-option");
-
-const importantQuizMessage =
-    document.querySelector("#page7 .quiz-message");
-
-
-importantQuizOptions.forEach((option) => {
-
-    option.addEventListener("click", function () {
-
-        const correct =
-            this.classList.contains("correct");
-
-
-        if (correct) {
-
-            importantQuizMessage.textContent =
-                "09 October 2023. The day we became US. ♡";
-
-
-            importantQuizMessage.style.color =
-                "#8b3d55";
-
-
-            this.style.background =
-                "#8b3d55";
-
-            this.style.color =
-                "#ffffff";
-
-
-            createHearts(15);
-
-        } else {
-
-            importantQuizMessage.textContent =
-                "Not quite... remember the date that changed everything.";
-
-            importantQuizMessage.style.color =
-                "#c96f86";
-
-        }
-
-    });
-
-});
-
-
-/* =========================================================
-   PAGE 8
-   ANNIVERSARY EFFECT
-   ========================================================= */
-
-const anniversaryPage =
-    document.querySelector(".anniversary-page");
-
-
-function anniversaryEffect() {
-
-    if (!anniversaryPage) return;
-
-
-    createHearts(20);
-
-}
-
-
-/* =========================================================
-   PAGE 9
-   THEN VS NOW
-   ========================================================= */
-
-const comparisonSlider =
-    document.querySelector("#page9 .slider input");
-
-
-const thenBox =
-    document.querySelector("#page9 .then");
-
-const nowBox =
-    document.querySelector("#page9 .now");
-
-
-function initializeThenNow() {
-
-    if (!comparisonSlider) return;
-
-
-    comparisonSlider.value = 50;
-
-}
-
-
-if (comparisonSlider) {
-
-    comparisonSlider.addEventListener("input", function () {
-
-        const value =
-            Number(this.value);
-
-
-        /*
-           The slider changes the visual balance
-           between THEN and NOW.
-        */
-
-        if (thenBox) {
-
-            thenBox.style.flex =
-                `${100 - value}`;
-
-        }
-
-
-        if (nowBox) {
-
-            nowBox.style.flex =
-                `${value}`;
-
-        }
-
-    });
-
-}
-
-
-/* =========================================================
-   PAGE 10
-   CURRENT PHOTOS
-   ========================================================= */
-
-const currentPhotos =
-    document.querySelectorAll(".current-gallery img");
-
-
-function prepareCurrentGallery() {
-
-    currentPhotos.forEach((photo, index) => {
-
-        photo.style.opacity = "0";
-
-        photo.style.transform =
-            "translateY(40px)";
-
-
-        setTimeout(() => {
-
-            photo.style.transition =
-                "opacity 0.8s ease, transform 0.8s ease";
-
-            photo.style.opacity =
-                "1";
-
-            photo.style.transform =
-                "translateY(0)";
-
-        }, index * 350);
-
-    });
-
-}
-
-
-/* =========================================================
-   PAGE 11
-   COUPLE QUIZ
-   ========================================================= */
-
-const coupleQuestions =
-    document.querySelectorAll(".couple-question");
-
-
-let coupleScore = 0;
-
-let answeredQuestions = 0;
-
-
-/*
-   IMPORTANT:
-
-   These are temporary answers.
-
-   Later you can tell me the actual answers
-   and I will change them.
-
-   Example:
-   question 1 = "You"
-   question 2 = "Me"
-   etc.
-*/
-
-const correctCoupleAnswers = [
-
-    "You",
-
-    "Me",
-
-    "You",
-
-    "Me"
-
-];
-
-
-function resetCoupleQuiz() {
-
-    coupleScore = 0;
-
-    answeredQuestions = 0;
-
-
-    coupleQuestions.forEach((question, index) => {
-
-        const buttons =
-            question.querySelectorAll("button");
-
-
-        buttons.forEach((button) => {
-
-            button.style.background = "";
-
-            button.style.color = "";
-
-            button.disabled = false;
-
-        });
-
-    });
-
-}
-
-
-coupleQuestions.forEach((question, questionIndex) => {
-
-    const buttons =
-        question.querySelectorAll("button");
-
-
-    buttons.forEach((button) => {
-
-        button.addEventListener("click", function () {
-
-            /*
-               Prevent answering the same question twice.
-            */
-
-            if (this.disabled) return;
-
-
-            buttons.forEach((btn) => {
-
-                btn.disabled = true;
-
-            });
-
-
-            const answer =
-                this.textContent.trim();
-
-
-            const correctAnswer =
-                correctCoupleAnswers[questionIndex];
-
-
-            if (answer === correctAnswer) {
-
-                coupleScore++;
-
-                this.style.background =
-                    "#8b3d55";
-
-                this.style.color =
-                    "#ffffff";
-
-            } else {
-
-                this.style.background =
-                    "#d99aaa";
-
-                this.style.color =
-                    "#ffffff";
-
-            }
-
-
-            answeredQuestions++;
-
-
-            if (answeredQuestions === coupleQuestions.length) {
-
-                showCoupleScore();
-
-            }
-
-        });
-
-    });
-
-});
-
-
-function showCoupleScore() {
-
-    const message =
-        document.createElement("p");
-
-
-    message.id =
-        "coupleScoreMessage";
-
-
-    message.textContent =
-        `You got ${coupleScore} / ${coupleQuestions.length} ♡`;
-
-
-    message.style.margin =
-        "30px auto";
-
-    message.style.fontFamily =
-        "Arial, sans-serif";
-
-    message.style.fontSize =
-        "15px";
-
-    message.style.color =
-        "#8b3d55";
-
-
-    const container =
-        document.querySelector("#page11 .page-content");
-
-
-    const existing =
-        document.querySelector("#coupleScoreMessage");
-
-
-    if (existing) {
-
-        existing.remove();
-
-    }
-
-
-    container.appendChild(message);
-
-
-    createHearts(10);
-
-}
-
-
-/* =========================================================
-   PAGE 12
-   FINAL PAGE
-   ========================================================= */
-
-function prepareFinalPage() {
+    document
+        .getElementById("coupleFinal")
+        .style.display = "block";
 
     createHearts(12);
 
 }
 
 
-/* =========================================================
-   MUSIC SYSTEM
-   ========================================================= */
+/* ============================================================
+   HELPER
+============================================================ */
 
+function capitalize(text) {
 
-/*
-   Put your selected song here:
+    if (!text) {
+        return "";
+    }
 
-   Create a folder:
-
-   audio/
-
-   Then put your song inside it as:
-
-   song.mp3
-
-   Final path:
-
-   audio/song.mp3
-*/
-
-
-let music = null;
-
-let musicStarted = false;
-
-
-function createMusic() {
-
-    if (music) return;
-
-
-    music =
-        new Audio("audio/song.mp3");
-
-
-    music.loop = true;
-
-    music.volume = 0.65;
+    return text.charAt(0).toUpperCase()
+        + text.slice(1);
 
 }
 
 
-const playSongButton =
-    document.getElementById("playSong");
+/* ============================================================
+   HEART EFFECT
+============================================================ */
 
+function createHearts(count = 5) {
 
-if (playSongButton) {
-
-    playSongButton.addEventListener("click", function () {
-
-        createMusic();
-
-
-        if (!musicStarted) {
-
-            music.play()
-                .then(() => {
-
-                    musicStarted = true;
-
-                    playSongButton.textContent =
-                        "PAUSE OUR SONG";
-
-                })
-                .catch((error) => {
-
-                    console.log(
-                        "Music could not start:",
-                        error
-                    );
-
-                    playSongButton.textContent =
-                        "SONG FILE NOT FOUND";
-
-                });
-
-        } else {
-
-            if (music.paused) {
-
-                music.play();
-
-                playSongButton.textContent =
-                    "PAUSE OUR SONG";
-
-            } else {
-
-                music.pause();
-
-                playSongButton.textContent =
-                    "PLAY OUR SONG";
-
-            }
-
-        }
-
-    });
-
-}
-
-
-/* =========================================================
-   HEART PARTICLES
-   ========================================================= */
-
-function createHearts(number = 10) {
-
-    for (let i = 0; i < number; i++) {
-
-        const heart =
-            document.createElement("div");
-
-
-        heart.innerHTML = "♡";
-
-
-        heart.style.position =
-            "fixed";
-
-
-        heart.style.left =
-            Math.random() * 100 + "vw";
-
-
-        heart.style.bottom =
-            "-30px";
-
-
-        heart.style.fontSize =
-            (12 + Math.random() * 20) + "px";
-
-
-        heart.style.color =
-            "#c96f86";
-
-
-        heart.style.zIndex =
-            "9999";
-
-
-        heart.style.pointerEvents =
-            "none";
-
-
-        heart.style.opacity =
-            "0.85";
-
-
-        heart.style.transition =
-            "transform 4s ease, opacity 4s ease";
-
-
-        document.body.appendChild(heart);
-
+    for (let i = 0; i < count; i++) {
 
         setTimeout(() => {
 
-            heart.style.transform =
-                `translateY(-${window.innerHeight + 100}px)
-                 rotate(${Math.random() * 360}deg)`;
+            const heart =
+                document.createElement("div");
+
+            heart.className = "heart";
+
+            heart.textContent = "♥";
+
+            heart.style.left =
+                `${Math.random() * 100}vw`;
+
+            heart.style.fontSize =
+                `${12 + Math.random() * 18}px`;
+
+            heart.style.animationDuration =
+                `${5 + Math.random() * 4}s`;
+
+            heart.style.setProperty(
+                "--drift",
+                `${-70 + Math.random() * 140}px`
+            );
 
 
-            heart.style.opacity =
-                "0";
-
-        }, 50);
+            document.body.appendChild(heart);
 
 
-        setTimeout(() => {
+            setTimeout(() => {
 
-            heart.remove();
+                heart.remove();
 
-        }, 4500);
+            }, 10000);
+
+        }, i * 170);
 
     }
 
 }
 
 
-/* =========================================================
-   SMALL RAIN / LOVE EFFECT
-   ========================================================= */
+/* ============================================================
+   BACKGROUND HEARTS
+============================================================ */
 
-function createRainHearts() {
+function createBackgroundHeart() {
 
-    for (let i = 0; i < 12; i++) {
+    const heart =
+        document.createElement("div");
 
-        const drop =
-            document.createElement("div");
+    heart.className = "heart";
 
+    heart.textContent = "♡";
 
-        drop.innerHTML = "♡";
+    heart.style.left =
+        `${Math.random() * 100}vw`;
 
+    heart.style.fontSize =
+        `${10 + Math.random() * 14}px`;
 
-        drop.style.position =
-            "fixed";
+    heart.style.opacity =
+        "0.25";
 
+    heart.style.animationDuration =
+        `${8 + Math.random() * 6}s`;
 
-        drop.style.top =
-            "-30px";
-
-
-        drop.style.left =
-            Math.random() * 100 + "vw";
-
-
-        drop.style.color =
-            "rgba(255,255,255,0.8)";
-
-
-        drop.style.fontSize =
-            "18px";
+    heart.style.setProperty(
+        "--drift",
+        `${-80 + Math.random() * 160}px`
+    );
 
 
-        drop.style.zIndex =
-            "9999";
+    document
+        .querySelector(".background-hearts")
+        .appendChild(heart);
 
 
-        drop.style.pointerEvents =
-            "none";
+    setTimeout(() => {
 
+        heart.remove();
 
-        drop.style.transition =
-            "transform 2s linear, opacity 2s linear";
-
-
-        document.body.appendChild(drop);
-
-
-        setTimeout(() => {
-
-            drop.style.transform =
-                `translateY(${window.innerHeight + 100}px)`;
-
-
-            drop.style.opacity =
-                "0";
-
-        }, 50);
-
-
-        setTimeout(() => {
-
-            drop.remove();
-
-        }, 2300);
-
-    }
+    }, 15000);
 
 }
 
 
-/* =========================================================
+/* ============================================================
    KEYBOARD NAVIGATION
-   ========================================================= */
+============================================================ */
 
-document.addEventListener("keydown", function (event) {
-
-    /*
-       Right arrow = next page
-    */
+document.addEventListener("keydown", event => {
 
     if (event.key === "ArrowRight") {
 
-        const nextIndex =
-            currentPage + 1;
-
-
-        if (nextIndex < pages.length) {
-
-            nextPage(
-                pages[nextIndex].id
-            );
-
-        }
+        nextPage();
 
     }
-
-
-    /*
-       Left arrow = previous page
-
-       We intentionally keep this simple.
-    */
 
     if (event.key === "ArrowLeft") {
 
-        const previousIndex =
-            currentPage - 1;
+        previousPage();
 
+    }
 
-        if (previousIndex >= 0) {
+    if (event.code === "Space") {
 
-            nextPage(
-                pages[previousIndex].id
-            );
+        /*
+            Prevent space from scrolling the page.
+        */
 
-        }
+        event.preventDefault();
+
+        toggleMusic();
 
     }
 
 });
 
 
-/* =========================================================
-   START EVERYTHING
-   ========================================================= */
+/* ============================================================
+   CLICK CURRENT PHOTO TO FLIP ON MOBILE
+============================================================ */
 
-document.addEventListener("DOMContentLoaded", function () {
+document
+    .querySelectorAll(".flip-card")
+    .forEach(card => {
 
-    initializePages();
+        card.addEventListener("click", () => {
+
+            const inner =
+                card.querySelector(".flip-card-inner");
+
+            const current =
+                inner.style.transform;
+
+
+            if (
+                current === "rotateY(180deg)"
+            ) {
+
+                inner.style.transform =
+                    "rotateY(0deg)";
+
+            } else {
+
+                inner.style.transform =
+                    "rotateY(180deg)";
+
+            }
+
+        });
+
+    });
+
+
+/* ============================================================
+   TOUCH / SWIPE NAVIGATION
+============================================================ */
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+
+document.addEventListener("touchstart", event => {
+
+    touchStartX =
+        event.changedTouches[0].screenX;
 
 });
+
+
+document.addEventListener("touchend", event => {
+
+    touchEndX =
+        event.changedTouches[0].screenX;
+
+    handleSwipe();
+
+});
+
+
+function handleSwipe() {
+
+    const distance =
+        touchEndX - touchStartX;
+
+
+    /*
+        Ignore tiny movements.
+    */
+
+    if (Math.abs(distance) < 70) {
+        return;
+    }
+
+
+    if (distance < 0) {
+
+        nextPage();
+
+    } else {
+
+        previousPage();
+
+    }
+
+}
+
+
+/* ============================================================
+   INITIAL SETUP
+============================================================ */
+
+showPage(1);
+
+updateMusicUI();
+
+updatePageIndicator();
+
+updateNavigation();
+
+
+/* ============================================================
+   BACKGROUND HEART LOOP
+============================================================ */
+
+setInterval(() => {
+
+    createBackgroundHeart();
+
+}, 2600);
